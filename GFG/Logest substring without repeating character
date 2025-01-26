@@ -1,0 +1,21 @@
+class Solution {
+    int longestUniqueSubstring(String s) {
+        // code here
+        int windowStart=0,windowEnd=0,maxLen=Integer.MIN_VALUE;
+        Set<Character>set= new HashSet<>();
+        while(windowEnd<s.length()){
+            char ch= s.charAt(windowEnd);
+            if(set.contains(ch)){
+                while(windowStart<windowEnd && set.contains(ch)){
+                    set.remove(s.charAt(windowStart));
+                    windowStart++;
+                    
+                }
+            }
+            set.add(ch);
+            maxLen= Math.max(maxLen,windowEnd-windowStart+1);
+            windowEnd++;
+        }
+        return maxLen;
+    }
+}
