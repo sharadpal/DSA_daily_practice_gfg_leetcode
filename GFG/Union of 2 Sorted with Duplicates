@@ -1,0 +1,27 @@
+Starting we create the HashSet and ArrayList all the element of 2 array in add in the Hashset set.
+and then all element of HashSet , added in the the ArrayList .
+and last Sort the ArrayList and print it
+
+EXAMPLE: - Input: a[] = [1, 2, 3, 4, 5], b[] = [1, 2, 3, 6, 7]
+Output: 1 2 3 4 5 6 7
+Explanation: Distinct elements including both the arrays are: 1 2 3 4 5 6 7.
+
+
+class Solution {
+    // Function to return a list containing the union of the two arrays.
+    public static ArrayList<Integer> findUnion(int a[], int b[]) {
+        ArrayList<Integer>list= new ArrayList<>();
+        HashSet<Integer>set= new HashSet<>();
+        for(int i=0;i<a.length;i++){
+            set.add(a[i]);
+        }
+        for(int i=0;i<b.length;i++){
+            set.add(b[i]);
+        }
+        for(int j: set){
+            list.add(j);
+        }
+        Collections.sort(list); 
+        return list;
+    }
+}
