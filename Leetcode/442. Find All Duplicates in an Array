@@ -1,0 +1,27 @@
+Example 1:
+
+Input: nums = [4,3,2,7,8,2,3,1]
+Output: [2,3]
+Example 2:
+
+Input: nums = [1,1,2]
+Output: [1]
+
+
+class Solution {
+    public List<Integer> findDuplicates(int[] nums) {
+        List<Integer>list= new ArrayList<>();
+        HashSet<Integer>set= new HashSet<>();
+        for(int num:nums){
+            if(set.contains(num)){
+                if(!list.contains(num)){
+                    list.add(num);
+                }
+            }
+            else{
+                set.add(num);
+            }
+        }
+        return list;
+    }
+}
