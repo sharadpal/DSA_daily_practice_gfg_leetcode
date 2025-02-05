@@ -1,0 +1,25 @@
+Given two square Matrices A[][] and B[][]. Your task is to complete the function multiply which stores the multiplied matrices in a new matrix C[][].
+
+
+class GfG
+{
+      public static void multiply(int A[][], int B[][], int C[][], int N)
+        {
+           //add code here.
+           int m1= A.length;
+           int n1= A[0].length;
+           int m2= B.length;
+           int n2= B[0].length;
+           
+           for(int i=0;i<m1;i++){
+               for(int j=0;j<n2;j++){
+                   int x=0;
+                   for(int  k=0;k<n1;k++){
+                       x+=A[i][k]*B[k][j];
+                   }
+                   C[i][j]=x;
+               }
+           }
+           
+        }
+}
