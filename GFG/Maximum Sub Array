@@ -1,0 +1,58 @@
+Input: arr[] = [1, 2, 5, -7, 2, 6]
+Output: [1, 2, 5]
+Explanation: The valid non-negative subarrays are [1, 2, 5] and [2, 6].Both have the same sum of 8, but [1, 2, 5] starts earlier, so it is the preferred subarray.
+------->>>>>>>>>>>>>>>>>>>>>> CODE
+class Solution {
+    public ArrayList<Integer> findSubarray(int arr[]) {
+        // code here
+       int start=-1, end=-1, maxi = 0, sum=0, lastNeg=-1;
+        ArrayList<Integer> ans= new ArrayList<>();
+        
+        int size = arr.length;
+        
+        for(int i=0; i<size; i++){
+            
+            if(arr[i]<0){
+                
+                if(sum>maxi){
+                    start = lastNeg+1;
+               end=i;
+               maxi=sum;
+                }
+                
+                sum=0;
+               lastNeg=i;
+            } else {
+            sum+=arr[i];
+            }
+        }
+        
+        if(sum>maxi){
+            start=lastNeg+1;
+            end=size;
+        }
+        
+        if(lastNeg != -1){
+            if(start==-1 && end==-1 && lastNeg != size-1){
+                start = lastNeg+1;
+                end = size;
+            } 
+            
+            if(start==-1 && end==-1 && lastNeg == size-1){
+                ans.add(-1);
+                
+             return ans;
+            }
+        } else {
+            start = 0; 
+            end=size;
+        }
+        
+        for(int j=start; j<end; j++){
+            ans.add(arr[j]);
+        }
+        
+        return ans;
+    }
+    
+}
