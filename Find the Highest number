@@ -1,0 +1,27 @@
+Note: a[i] != a[i+1] 
+
+Example 1:
+
+Input:
+11
+1 2 3 4 5 6 5 4 3 2 1
+Output: 
+6
+----->>>>>>>>>>>> CODE
+class Solution {
+    public int findPeakElement(List<Integer> a) {
+        // Code here
+        int left=0;
+        int right=a.size()-1;
+        while(left<right){
+            int mid= (left+right)/2;
+            if(a.get(mid)>a.get(mid+1)){
+                right=mid;
+            }
+            else{
+                left=mid+1;
+            }
+        }
+        return a.get(left);
+    }
+}
