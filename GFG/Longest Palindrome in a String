@@ -1,0 +1,38 @@
+Input: s = “forgeeksskeegfor” 
+Output: “geeksskeeg”
+----------->>>>>>>>>>>>>> CODE
+class Solution {
+    static String longestPalindrome(String s) {
+        // code here
+        int start=0,end=0,len=0,n=s.length();
+        for(int i=1;i<n;i++){
+            int S=i-1,E=i+1;
+            while(S>=0 && E<n && s.charAt(S)==s.charAt(E)){
+                if(E-S+1>len){
+                    len=E-S+1;
+                    start=S;
+                    end=E;
+                }
+                S--;
+                E++;
+            }
+            S=i-1;
+            E=i;
+            while(S>=0 && E<n && s.charAt(S)==s.charAt(E)){
+                if(E-S+1>len){
+                    len=E-S+1;
+                    start=S;
+                    end=E;
+                }
+                S--;
+                E++;
+            }
+        }
+        StringBuilder ans= new StringBuilder();
+        for(int i=start;i<=end;i++){
+            ans.append(s.charAt(i));
+        }
+        return ans.toString();
+        
+    }
+}
