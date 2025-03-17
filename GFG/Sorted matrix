@@ -1,0 +1,27 @@
+Given an NxN matrix Mat. Sort all elements of the matrix.
+////-------->>>>>>> CODE
+class Solution {
+    int[][] sortedMatrix(int N, int Mat[][]) {
+        // code here
+        
+        int ans[]= new int[N*N];
+        int a=0;
+        for(int i=0;i<N;i++){
+            for(int j=0;j<N;j++){
+                ans[a]=Mat[i][j];
+                a++;
+            }
+        }
+        Arrays.sort(ans);
+        int b=0;
+        for(int i=0;i<N;i++){
+            for(int j=0;j<N;j++){
+                Mat[i][j]=ans[b];
+                b++;
+            }
+            
+        }
+        return Mat;
+        
+    }
+}
