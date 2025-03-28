@@ -1,0 +1,23 @@
+Input: nums = [7,4,3,9,1,8,5,2,6], k = 3
+Output: [-1,-1,-1,5,4,4,-1,-1,-1]
+------>>>>>>>>>>>>>>>>> CODE
+class Solution {
+    public int[] getAverages(int[] nums, int k) {
+        if(k==0){
+            return nums;
+        }
+         int n=nums.length;
+         long[] sum= new long[n];
+         sum[0]=nums[0];
+         int[] res= new int[n];
+         Arrays.fill(res,-1);
+         for(int i=1;i<n;i++){
+            sum[i]=sum[i-1]+nums[i];
+         }
+         for(int i=k;i<n-k;i++){
+            long ans=(sum[i+k]-sum[i-k]+nums[i-k])/(2*k+1);
+            res[i]=(int)ans;
+         }
+        return res;
+    }
+}
