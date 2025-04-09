@@ -1,0 +1,23 @@
+Ex= arr[]=[4,3,2,6]
+Starting we have sort the arr, and then calculate min sum  . save that value . and then again calculate two value sum 
+last all save value we calculate all element sum
+
+//----------------->>>>>>>>>>>>>>>>>>>>> CODE
+class Solution {
+    // Function to return the minimum cost of connecting the ropes.
+    public int minCost(int[] arr) {
+        PriorityQueue<Integer> minHeap= new PriorityQueue<>();
+        for(int length:arr){
+            minHeap.add(length);
+        }
+        int totalCost=0;
+        while(minHeap.size()>1){
+            int first= minHeap.poll();
+            int second= minHeap.poll();
+            int cost= first+second;
+            totalCost+= cost;
+            minHeap.add(cost);
+        }
+        return totalCost;
+    }
+}
