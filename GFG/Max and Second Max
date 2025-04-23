@@ -1,0 +1,43 @@
+Given an array arr[] of size N of positive integers which may have duplicates. The task is to find the maximum and 
+second maximum from the array, and both of them should be different from each other, so If no second max exists,
+then the second max will be -1.
+
+Example 1:
+
+Input:
+N = 3
+arr[] = {2,1,2}
+Output: 2 1
+Explanation: From the given array 
+elements, 2 is the largest and 1 
+is the second largest
+
+------------>>>>>>>>>>>> CODE
+class Solution{
+    public static ArrayList<Integer> largestAndSecondLargest(int sizeOfArray, int arr[])
+    {
+        //code here.
+        ArrayList<Integer>list= new ArrayList<>();
+        Arrays.sort(arr);
+        if(sizeOfArray==0){
+            list.add(-1);
+            list.add(-1);
+            return list;
+        }
+        if(sizeOfArray==1){
+            list.add(arr[sizeOfArray-1]);
+            list.add(-1);
+            return list;
+        }
+        int max= arr[sizeOfArray-1];
+        list.add(max);
+        int secondMax= -1;
+        for(int i=arr.length-2;i>=0;i--){
+            if(arr[i]!=max){
+                list.add(arr[i]);
+                break;
+            }
+        }
+        return list;
+    }
+}
