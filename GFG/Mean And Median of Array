@@ -1,0 +1,40 @@
+Input:
+N = 5
+a[] = {1, 2, 19, 28, 5}
+Output: 11 5
+Explanation: For array of 5 elements,
+mean is (1 + 2 + 19  + 28  + 5)/5 = 11.
+Median is 5 (middle element after 
+sorting)
+
+------------------CODE
+class Solution
+{
+  //Function to find median of the array elements.  
+  public int median(int A[],int N)
+    {
+      
+       Arrays.sort(A);
+       int ans=0;
+       if(N%2!=0){
+           ans=A[N/2];
+       }else{
+           ans= (A[N/2]+A[(N/2)-1])/2;
+       }
+       return ans;
+       
+       //Your code here
+       //If median is fraction then conver it to integer and return
+    }
+    //Function to find median of the array elements.
+    public int mean(int A[],int N)
+    {
+       //Your code here
+       int sum=0;
+       for(int i=0;i<A.length;i++){
+           sum+=A[i];
+       }
+       return sum/N;
+    }
+
+}
