@@ -1,0 +1,40 @@
+Given a string s, the task is to find the minimum characters to be added at the front to make the string palindrome.
+
+Note: A palindrome string is a sequence of characters that reads the same forward and backward.
+
+Examples:
+
+Input: s = "abc"
+Output: 2
+Explanation: Add 'b' and 'c' at front of above string to make it palindrome : "cbabc"
+
+
+
+
+class Solution {
+    public static int minChar(String s) {
+        // Write your code here
+        StringBuilder rev= new StringBuilder();
+        rev.append(s);
+        rev.reverse();
+        StringBuilder str= new StringBuilder();
+        str.append(s).append('$').append(rev.toString());
+        String complete= str.toString();
+        int n=complete.length();
+        int []res= new int[n];
+        Arrays.fill(res,0);
+        int i=0,j=1;
+        while(j<n){
+            if(complete.charAt(j)==complete.charAt(i)){
+                res[j++]=++i;
+            }
+            else if(i!=0){
+                i= res[i-1];
+            }else{
+                j++;
+            }
+        }
+        return s.length()-i;
+        
+    }
+}
