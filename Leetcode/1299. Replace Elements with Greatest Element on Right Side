@@ -1,0 +1,18 @@
+Example 1:
+
+Input: arr = [17,18,5,4,6,1]
+Output: [18,6,6,6,1,-1]
+
+class Solution {
+    public int[] replaceElements(int[] arr) {
+        int n=arr.length;
+        int ans[]=new int[n];
+        ans[n-1]=-1;
+        int maxSoFar= arr[n-1];
+        for(int i=n-2;i>=0;i--){
+            ans[i]=maxSoFar;
+            maxSoFar=Math.max(maxSoFar,arr[i]);
+        }
+        return ans;
+    }
+}
