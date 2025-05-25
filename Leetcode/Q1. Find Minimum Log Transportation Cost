@@ -1,0 +1,34 @@
+Example 1:
+
+Input: n = 6, m = 5, k = 5
+
+Output: 5
+
+Explanation:
+
+Cut the log with length 6 into logs with length 1 and 5, at a cost equal to 1 * 5 == 5. Now the three logs of 
+length 1, 5, and 5 can fit in one truck each.
+
+
+---------------<<<<<<<<<<<<<<<<<<<<<< CODE
+
+class Solution {
+    private long cuttingCost(int length, int k) {
+        if (length <= k) {
+            return 0;
+        }
+        long minCost = Long.MAX_VALUE;
+        for (int len1 = 1; len1 <= k; len1++) {
+            int len2 = length - len1;
+            if (len2 > 0 && len2 <= k) {
+                long cost = (long) len1 * len2;
+                minCost= Math.min(minCost,cost);
+            }
+        }
+        return minCost;
+    }
+    public long minCuttingCost(int n, int m, int k) {
+        return cuttingCost(n, k) + cuttingCost(m, k);
+    }
+    
+}©leetcode
