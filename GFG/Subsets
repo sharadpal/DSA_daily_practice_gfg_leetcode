@@ -1,0 +1,31 @@
+Given an array arr[] of distinct positive integers, your task is to find all its subsets. The subsets should be returned
+in lexicographical order.
+
+Examples:
+
+Input: arr = [1, 2, 3]
+Output: [[], [1], [1, 2], [1, 2, 3], [1, 3], [2], [2, 3], [3]]
+Explanation: 
+The subsets of [1, 2, 3] in lexicographical order are:
+[], [1], [1, 2], [1, 2, 3], [1, 3], [2], [2, 3], [3]
+
+----------->>>>>>>>>>>>>>> CODE
+class Solution {
+    private void backtrack(ArrayList<ArrayList<Integer>> result, ArrayList<Integer>currSubset, int arr[], int idx){
+        result.add(new ArrayList<>(currSubset));
+        for(int i=idx;i<arr.length;i++){
+            currSubset.add(arr[i]);
+            // Move to the next element
+            backtrack(result,currSubset,arr,i+1);
+            // Exclude the current element (backtrack)
+            currSubset.remove(currSubset.size()-1);
+        }
+    }
+    public ArrayList<ArrayList<Integer>> subsets(int arr[]) {
+        ArrayList<ArrayList<Integer>> result= new ArrayList<>();
+        ArrayList<Integer>currSubset=new ArrayList<>();
+        Arrays.sort(arr);  // because return lexicographicxal order
+        backtrack(result,currSubset,arr,0);
+        return result;
+    }
+}
