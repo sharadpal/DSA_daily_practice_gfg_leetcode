@@ -1,0 +1,34 @@
+Input: root = [5,3,6,2,4,null,7], k = 9
+Output: true
+-------->>>>>>>.. CODE--------
+class Solution {
+    private void collectValues(TreeNode root,ArrayList<Integer>list){
+        if(root==null){
+            return;
+        }
+        list.add(root.val);
+        collectValues(root.left,list);
+        collectValues(root.right,list);
+    }
+    public boolean findTarget(TreeNode root, int k) {
+        ArrayList<Integer>list= new ArrayList<>();
+
+        collectValues(root,list);
+        Collections.sort(list);
+
+        int i=0;
+        int j=list.size()-1;
+        while(i<j){
+            if(list.get(i)+list.get(j)==k){
+                return true;
+            }
+            else if(list.get(i)+list.get(j)>k){
+                j--;
+            }
+            else{
+                i++;
+            }
+        }
+        return false;
+    }
+}
