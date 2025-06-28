@@ -1,0 +1,38 @@
+Examples:
+
+Input: V = 4, edges[][] = [[0, 1], [0, 2], [1, 2], [2, 0], [2, 3]]
+Output: true
+Explanation: The diagram clearly shows a cycle 0 → 2 → 0
+
+---------------------->> CODE--------------------------
+
+class Solution {
+    public boolean isCyclic(int V, int[][] edges) {
+        List<List<Integer>>adj = new ArrayList<>();
+        for(int i=0;i<V;i++){
+            adj.add(new ArrayList<>());
+        }
+        int []indegree = new int[V];
+        for(int i=0;i<edges.length;i++){
+            adj.get(edges[i][0]).add(edges[i][1]);
+            indegree[edges[i][1]]++;
+        }
+        Queue<Integer>queue = new LinkedList<>();
+        for(int i=0;i<V;i++){
+            if(indegree[i]==0) queue.offer(i);
+        }
+        while(!queue.isEmpty()){
+            int currentNode = queue.poll();
+            for(int x:adj.get(currentNode)){
+                indegree[x]--;
+                if(indegree[x]==0) queue.offer(x);
+            }
+        }
+        // agar ek ki bhi indegree 0 se jyda hui that means ki 
+        // cycle h because agr dependency nh h toh sb zero ho jaayege
+        for(int i=0;i<V;i++){
+            if(indegree[i]>0) return true;
+        }
+        return false;
+    }
+}
