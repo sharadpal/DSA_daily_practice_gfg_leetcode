@@ -1,0 +1,22 @@
+Input: graph = [[1,2],[3],[3],[]]
+Output: [[0,1,3],[0,2,3]]
+Explanation: There are two paths: 0 -> 1 -> 3 and 0 -> 2 -> 3.
+------------------------------------------------------------------------------------------------------------------------------
+class Solution {
+    private void dfs(int src,int dest,int [][]graph,List<Integer>list,List<List<Integer>>answer){
+        list.add(src);
+        if(src==dest){
+            answer.add(new ArrayList<>(list));
+        }else{
+            for(int currentNode : graph[src]){
+                dfs(currentNode,dest,graph,list,answer);
+            }
+        }
+        list.remove(list.size()-1);
+    }
+    public List<List<Integer>> allPathsSourceTarget(int[][] graph) {
+        List<List<Integer>> answer= new ArrayList<>();
+        dfs(0,graph.length-1,graph, new ArrayList<>(),answer);
+        return answer;
+    }
+}
