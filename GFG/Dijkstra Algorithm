@@ -1,0 +1,49 @@
+Examples:
+
+Input: V = 3, edges[][] = [[0, 1, 1], [1, 2, 3], [0, 2, 6]], src = 2
+Output: [4, 3, 0]
+------------------------------------------------------------------------------------
+
+class Solution {
+    private class Pair{
+        int first;
+        int weight;
+        public Pair(int f,int w){
+            this.first = f;
+            this.weight = w;
+        }
+    }
+    public int[] dijkstra(int V, int[][] edges, int src) {
+        // code here
+        int[] dis = new int[V];
+        Arrays.fill(dis,(int)1e9);
+        ArrayList<ArrayList<Pair>> adj = new ArrayList<>();
+        for(int i = 0; i < V; i++){
+            adj.add(new ArrayList<>());
+        }
+        for(int[] edgee : edges){
+            int u = edgee[0];
+            int v = edgee[1];
+            int w = edgee[2];
+            adj.get(u).add(new Pair(v,w));
+            adj.get(v).add(new Pair(u,w));
+        }
+        dis[src] = 0;
+        PriorityQueue<Pair> pq = new PriorityQueue<>((a, b) -> a.weight - b.weight);
+        pq.add(new Pair(src,dis[src]));
+        while(!pq.isEmpty()){
+            int node = pq.peek().first;
+            int wt = pq.peek().weight;
+            pq.remove();
+            for(Pair pair : adj.get(node)){
+                int adjNode = pair.first;
+                int edgeWt = pair.weight;
+                if(wt + edgeWt < dis[adjNode]){
+                    dis[adjNode] = wt + edgeWt;
+                    pq.add(new Pair(adjNode,dis[adjNode]));
+                }
+            }
+        }
+        return dis;
+    }
+}
