@@ -1,0 +1,17 @@
+Examples:
+Input: root[] = [12, 8, 18, 5, 11] 
+
+Output: 2
+Explanation: One of the longest path from the root (node 12) goes through node 8 to node 5, which has 2 edges.
+
+--------------------------------------------------------------------------------
+
+class Solution {
+    int height(Node node) {
+        // code here
+        if(node==null){
+            return -1;
+        }
+        return Math.max(height(node.left),height(node.right))+1;
+    }
+}
