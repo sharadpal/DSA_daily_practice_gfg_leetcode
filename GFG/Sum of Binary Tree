@@ -1,0 +1,22 @@
+Examples:
+
+Input: root = [10, 20, 30, 40, 60, N, N]
+           10
+         /   \
+        20    30
+      /    \
+    40     60
+Output: 160
+Explanation: The sum of all the nodes is 10 + 20 + 30 + 40 + 60.
+
+---------------------------------------------------------------------------------------------------
+class Solution {
+    static int sumBT(Node root) {
+        // Your code here
+        if(root==null){
+            return 0;
+        }
+        if(root.left==null && root.right==null) return root.data;
+        return sumBT(root.left)+sumBT(root.right)+root.data;
+    }
+}
