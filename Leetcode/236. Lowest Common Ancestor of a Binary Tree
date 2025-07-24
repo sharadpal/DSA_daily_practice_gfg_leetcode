@@ -1,0 +1,31 @@
+Example 1:
+Input: root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 1
+Output: 3
+Explanation: The LCA of nodes 5 and 1 is 3.
+
+---------------------------------------------------------------
+class Solution {
+    public static boolean getPath(TreeNode root,int n,ArrayList<TreeNode>path ){
+        if(root==null) return false;
+        path.add(root);
+        if(root.val==n) return true;
+        boolean foundLeft= getPath(root.left,n,path);
+        boolean foundRight=getPath(root.right,n,path);
+        if(foundLeft || foundRight) return true;
+        path.remove(path.size()-1);
+        return false;
+    }
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        ArrayList<TreeNode>path1=new ArrayList<>();
+        ArrayList<TreeNode>path2=new ArrayList<>();
+        getPath(root,p.val,path1);
+        getPath(root,q.val,path2);
+        // last common ancester
+        int i=0;
+        for(;i<path1.size() && i<path2.size();i++){
+            if(path1.get(i)!=path2.get(i)) break;
+        }
+        TreeNode lowestCommonAncestor=path1.get(i-1);
+        return lowestCommonAncestor;
+    }
+}
