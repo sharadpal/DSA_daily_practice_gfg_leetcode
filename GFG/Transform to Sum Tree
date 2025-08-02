@@ -1,0 +1,39 @@
+Example 1:
+
+Input:
+             10
+          /      \
+        -2        6
+       /   \     /  \
+     8     -4   7    5
+
+Output:
+            20
+          /    \
+        4        12
+       /  \     /  \
+     0     0   0    0
+
+Explanation:
+
+           (4-2+12+6)
+          /           \
+      (8-4)          (7+5)
+       /   \         /  \
+      0     0       0    0
+
+-------------------------------------------------------------------------------------------------------------------
+
+class Solution {
+    public int toSumTree(Node root) {
+        // add code here.
+        if(root==null) return 0;
+        int leftChild=toSumTree(root.left);
+        int rightChild=toSumTree(root.right);
+        int data= root.data;
+        int newLeft= root.left==null ? 0:root.left.data;
+        int newRight= root.right==null ? 0:root.right.data;
+        root.data=leftChild+rightChild+newLeft+newRight;
+        return data;
+    }
+}
