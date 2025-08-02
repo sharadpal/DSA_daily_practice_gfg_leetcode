@@ -1,0 +1,22 @@
+Examples :
+
+Input: key = 4
+
+Output: 1 2 3 4
+Explanation: After inserting the node 4 Inorder traversal will be 1 2 3 4.
+---------------------------------------------------------------------------------------------
+
+class Solution {
+    Node insert(Node root, int Key) {
+        // your code here
+        if(root==null){
+            return new Node(Key);
+        }
+        if(root.data>Key){
+            root.left= insert(root.left,Key);
+        }else if(root.data<Key){
+            root.right=insert(root.right,Key);
+        }
+        return root;
+    }
+}
