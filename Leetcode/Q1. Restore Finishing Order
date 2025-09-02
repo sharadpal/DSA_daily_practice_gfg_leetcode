@@ -1,0 +1,26 @@
+Example 1:
+
+Input: order = [3,1,2,5,4], friends = [1,3,4]
+
+Output: [3,1,4]
+------------------------------------------------------
+
+class Solution {
+    public int[] recoverOrder(int[] order, int[] friends) {
+        Set<Integer>set=new HashSet<>();
+        List<Integer>list= new ArrayList<>();
+        for(int s: friends){
+            set.add(s);
+        }
+        for(int val: order){
+            if(set.contains(val)){
+                list.add(val);
+            }
+        }
+        int arr[]=new int[list.size()];
+        for(int i=0;i<list.size();i++){
+            arr[i]=list.get(i);
+        }
+        return arr;
+    }
+}
