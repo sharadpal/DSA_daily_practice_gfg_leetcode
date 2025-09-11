@@ -1,0 +1,37 @@
+Examples:
+
+Input: arr[] = [2, 2]
+Output: [2, 1]
+Explanation: Repeating number is 2 and the missing number is 1.
+//--------------------------------------------------------------------
+
+class Solution {
+    static int x;
+    ArrayList<Integer> findTwoElement(int arr[]) {
+        // code here
+        ArrayList<Integer> ans=new ArrayList<>();
+        Arrays.sort(arr);
+        if(arr.length==0) return ans;
+        
+        for(int i=1;i<arr.length;i++){
+            if(arr[i-1]==arr[i]){
+                x= arr[i];
+                ans.add(x);
+            }
+        }
+        // total sum without repeating
+        int sum1=0;
+        for(int i=1;i<=arr.length;i++){
+            sum1+=i;
+        }
+        // total sum with repeat
+        int sum2=0;
+        for(int i=0;i<arr.length;i++){
+            sum2+=arr[i];
+        }
+        
+        sum2=sum2-x;
+        ans.add(sum1-sum2);
+        return ans;
+    }
+}
