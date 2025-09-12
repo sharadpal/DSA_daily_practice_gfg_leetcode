@@ -1,0 +1,39 @@
+Example 1:
+
+Input: N = 4, k = 2
+A = {7, 5, 21, 17}
+Output: 13
+Explaination: We can add k = 2 to A[1] 
+once and subtract k = 2 from A[2] seven 
+times and from A[3] five times.The 
+resulting array would be- 7 7 7 7. 
+Number of moves = 1 + 7 + 5 = 13.
+--------------------------------------------------------------
+
+// User function Template for Java
+
+class Solution {
+    static int equalizeArray(int N, int k, int A[]) {
+        // code here
+        int m=(int)1e9+7;
+        Arrays.sort(A);
+        int mid;
+        int ans=0;
+        if(N%2==0){
+            mid=N/2-1;
+            
+        }
+        else{
+            mid=N/2;
+            
+        }
+        for(int i=0; i<N; i++){
+            if(Math.abs((A[mid]-A[i]))%k!=0){
+                return -1;
+            }
+            ans=(ans+(Math.abs(A[i]-A[mid])/k))%m;
+        }
+        return ans;
+        
+    }
+}
