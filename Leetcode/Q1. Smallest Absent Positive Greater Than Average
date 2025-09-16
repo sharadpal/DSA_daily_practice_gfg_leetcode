@@ -1,0 +1,36 @@
+Example 2:
+
+Input: nums = [-1,1,2]
+
+Output: 3
+
+Explanation:
+
+​​​​​​​The average of nums is (-1 + 1 + 2) / 3 = 2 / 3 = 0.667.
+The smallest absent positive integer greater than 0.667 is 3.©leetcode
+------------------------------------------------------------------------------------
+
+class Solution {
+    public int smallestAbsent(int[] nums) {
+        HashSet<Integer> set= new HashSet<>();
+        for(int i:nums){
+            set.add(i);
+        }
+        Arrays.sort(nums);
+        int sum=0;
+        for(int i=0;i<nums.length;i++){
+            sum+=nums[i];
+        }
+        if(sum<0){
+            sum=0;
+        }
+        int avg=sum/nums.length;
+        int candidate= avg+1;
+        while(true){
+            if(!set.contains(candidate)){
+                return candidate;
+            }
+            candidate++;
+        }
+    }
+}
