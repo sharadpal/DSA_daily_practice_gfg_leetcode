@@ -1,0 +1,25 @@
+Examples:
+
+Input: arr[] = [2, -3, 4, 1, 1, 7]
+Output: 3
+Explanation: Smallest positive missing number is 3.
+------------------------------------------------------------------------
+
+class Solution {
+    public int missingNumber(int[] arr) {
+        // code here
+        if(arr.length==0) return 0;
+        HashSet<Integer>set= new HashSet<>();
+        for(int i:arr){
+            set.add(i);
+        }
+        int num=1;
+        while(true){
+            if(!set.contains(num)){
+                return num;
+            }
+            num++;
+        }
+        
+    }
+}
