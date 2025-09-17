@@ -1,0 +1,31 @@
+Example 1:
+
+Input: n = 1553322
+
+Output: 1
+
+Explanation:
+
+The least frequent digit in n is 1, which appears only once. All other digits appear twice.
+--------------------------------------------------------------------------------------------------
+
+class Solution {
+    public int getLeastFrequentDigit(int n) {
+        HashMap<Integer,Integer> map= new HashMap<>();
+        while(n>0){
+            int digit=n%10;
+            map.put(digit, map.getOrDefault(digit,0)+1);
+            n/=10;
+        }
+        int leastF=Integer.MAX_VALUE;
+        int ans=-1;
+        for(int val: map.keySet()){
+            int freq= map.get(val);
+            if(freq<leastF || (freq==leastF && val<ans)){
+                leastF= freq;
+                ans=val;
+            }
+        }
+        return ans;
+    }
+}
