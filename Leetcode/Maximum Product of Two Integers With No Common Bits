@@ -1,0 +1,50 @@
+Example 1:
+Input: nums = [1,2,3,4,5,6,7]
+Output: 12
+The best pair is 3 (011) and 4 (100). They share no set bits and 3 * 4 = 12.
+-----------------------------------------------------------------------------------------
+
+class Solution {
+    public long maxProduct(int[] nums) {
+        // Map<Integer,Integer> map= new HashMap<>();
+        // for(int ele:nums){
+        //     int mask= ele;
+        //     map.put(mask,Math.max(map.getOrDefault(mask,0),ele));
+        // }
+        // long ans=0;
+        // for(int m: map.keySet()){
+        //     for(int n: map.keySet()){
+        //         if((m & n)==0){
+        //             long max=(long)(map.get(m)*map.get(n));
+        //             ans=Math.max(ans,max);
+                    
+        //         }
+        //     }   
+        // }  
+        // return ans;
+//----------------------------------------- second method
+
+        int max=0;
+        for(int val:nums)max=Math.max(max,val);
+        int totalBit=(int)(Math.log(max)/Math.log(2) + 1);
+        int maxMask=(1<<totalBit)-1;
+        int[] dp=new int[maxMask+1];
+        for(int val:nums)dp[val]=val;
+        
+        for(int i=0; i<totalBit; i++){
+            for(int val=1; val<=maxMask; val++){
+                if((val & (1<<i) )!=0){//only for set bit we need to unset
+                    int offBitNumber=(val ^ (1<<i));//set bit -> unset
+                    dp[val]=Math.max(dp[val],dp[offBitNumber]);
+                }
+            }
+        }
+        long ans=0;
+        for(int val:nums){
+           
+            int comp=(maxMask ^ val);
+            ans=Math.max(ans,(long)val*dp[comp]);
+        }
+        return ans;
+    }
+}©leetcode
