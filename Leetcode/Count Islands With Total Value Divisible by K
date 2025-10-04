@@ -1,0 +1,48 @@
+Input: grid = [[0,2,1,0,0],[0,5,0,0,5],[0,0,1,0,0],[0,1,4,7,0],[0,2,0,0,8]], k = 5
+
+Output: 2
+
+Explanation:
+
+The grid contains four islands. The islands highlighted in blue have a total value that is divisible by 5, while the islands highlighted in red do not.
+
+Note: Please do not copy the description during the contest to maintain the integrity of your submissions.
+----------------------------------------------------------------------------------------------------------
+
+class Solution {
+    private int getIsland(int[][] grid, int row, int col, boolean[][] visited) {
+        visited[row][col] = true;
+        int value = grid[row][col];
+
+        // Check all 4 neighbors
+        if (row - 1 >= 0 && !visited[row - 1][col] && grid[row - 1][col] > 0) {
+            value += getIsland(grid, row - 1, col, visited);
+        }
+        if (row + 1 < grid.length && !visited[row + 1][col] && grid[row + 1][col] > 0) {
+            value += getIsland(grid, row + 1, col, visited);
+        }
+        if (col - 1 >= 0 && !visited[row][col - 1] && grid[row][col - 1] > 0) {
+            value += getIsland(grid, row, col - 1, visited);
+        }
+        if (col + 1 < grid[0].length && !visited[row][col + 1] && grid[row][col + 1] > 0) {
+            value += getIsland(grid, row, col + 1, visited);
+        }
+        return value;
+    }
+
+    public int countIslands(int[][] grid, int k) {
+        boolean[][] visited = new boolean[grid.length][grid[0].length];
+        int count = 0;
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                if (!visited[i][j] && grid[i][j] > 0) {
+                    int total = getIsland(grid, i, j, visited);
+                    if (total % k == 0) {
+                        count++;
+                    }
+                }
+            }
+        }
+        return count;
+    }
+}
