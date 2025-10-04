@@ -1,0 +1,36 @@
+Example 1:
+
+Input: dividend = 10, divisor = 3
+Output: 3
+Explanation: 10/3 = 3.33333.. which is truncated to 3.
+---------------------------------------------------------------
+
+class Solution {
+    public int divide(int dividend, int divisor) {
+        boolean sign=true;
+        if((dividend<0)!=(divisor<0)) sign=false;
+        long longDividend=Math.abs((long) dividend);
+        long longDivisor=Math.abs((long) divisor);
+        long total=0;
+        while(longDividend>=longDivisor){
+            int count=0;
+            while(longDividend>=longDivisor<<(count+1)){
+                count++;
+            }
+            total+=1l<<count;
+            longDividend-=longDivisor<<count;
+
+        }
+        long result;
+        if(!sign){
+            result=~total+1;
+
+        }else{
+            result=total;
+        }
+        if(result>=Integer.MIN_VALUE && result<=Integer.MAX_VALUE){
+            return (int)result;
+        }
+        return Integer.MAX_VALUE;
+    }
+}
