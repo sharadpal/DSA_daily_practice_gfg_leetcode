@@ -1,0 +1,26 @@
+Example 1:
+
+Input: nums = [1,2,3]
+Output: 2
+Explanation:
+One longest subsequence is [2, 3]. The bitwise XOR is computed as 2 XOR 3 = 1, which is non-zero
+---------------------------------------------------------------------------------------------------
+
+class Solution {
+    public int longestSubsequence(int[] nums) {
+        int xor=0;
+        int count=0;
+        int n=nums.length;
+        for(int i=0;i<n;i++){
+            xor^=nums[i];
+            if(nums[i]==0) count++;
+            
+        }
+        if(xor!=0) return n;
+        else{
+            if(count==nums.length) return 0;
+            return n-1;
+        }
+        
+    }
+}
