@@ -1,0 +1,17 @@
+Input: arr[] = [9, 2, 8, 4, 5, 7, 6, 0]
+Output: 74
+Explanation: Required sum can be obtained as 9*0 + 8*2 + 7*4 + 6*5 which is equal to 74.
+---------------------------------------------------------------------------------------------
+
+class Solution {
+    public int altProduct(int[] arr) {
+        // Your code goes here
+        Arrays.sort(arr);
+        int n=arr.length-1;
+        int sum=0;
+        for(int i=0;i<arr.length/2;i++){
+            sum+=arr[i]*arr[n-i];
+        }
+        return sum;
+    }
+}
