@@ -1,0 +1,21 @@
+Example 1:
+
+Input: s = "yz"
+Output: 2
+Explanation:
+Change 'y' to 'z' to get "zz".
+Change 'z' to 'a' to get "aa".
+Thus, the answer is 2.
+--------------------------------------------
+
+class Solution {
+    public int minOperations(String s) {
+        int ans=0;
+        for(char ch: s.toCharArray()){
+            if(ch=='a') continue;
+            int count= 26-(ch-'a');
+            ans=Math.max(ans,count);
+        }
+        return ans;
+    }
+}
