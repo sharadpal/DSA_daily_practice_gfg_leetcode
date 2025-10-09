@@ -1,0 +1,24 @@
+Examples:
+
+Input: s = "Bawds jog, flick quartz, vex nymph"
+Output: true
+Explanation: In the given string, there are all the letters of the English alphabet. Hence, the output is true.
+----------------------------------------------------------------------------------------------------------
+
+class Solution {
+    public static boolean checkPangram(String s) {
+        // code here
+        String s1=s.toLowerCase();
+        for(char i='a';i<='z';i++){
+            boolean check=false;
+            for(int j=0;j<s1.length();j++){
+                if(s1.charAt(j)==i){
+                    check=true;
+                    break;
+                }
+            }
+            if(!check) return false;
+        }
+        return true;
+    }
+}
