@@ -1,0 +1,22 @@
+Example 1:
+
+Input: sentence = "thequickbrownfoxjumpsoverthelazydog"
+Output: true
+Explanation: sentence contains at least one of every letter of the English alphabet.
+----------------------------------------------------------------------------------------
+
+class Solution {
+    public boolean checkIfPangram(String sentence) {
+        for(char i='a';i<='z';i++){
+            boolean search=false;
+            for(int j=0;j<sentence.length();j++){
+                if(sentence.charAt(j)==i){
+                    search =true;
+                    break;
+                }
+            }
+            if(!search)  return false;
+        }
+        return true;
+    }
+}
