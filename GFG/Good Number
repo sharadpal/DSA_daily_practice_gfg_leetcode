@@ -1,0 +1,18 @@
+NOTE- if first and last digit same return true otherwise return false 
+EX- n=121   its give the ans it true becase first and last digit (1) same
+-------------------------------------------------------------------------------
+
+class Solution {
+  public boolean isGoodNumber(int n) {
+    int first-n%10;
+    n=n/10;
+    while(n>0){
+      int digit=n%10;
+      if((first==digit)&& n<=){
+        return true;
+      } 
+      n/=10;
+    }
+    return false;
+  }
+}
