@@ -1,0 +1,21 @@
+Input: n = 153
+Output: true
+Explanation: 153 is an Armstrong number since 13 + 53 + 33 = 153.
+------------------------------------------------------------------------
+
+class Solution {
+    static boolean armstrongNumber(int n) {
+        // code here
+        int temp=n;
+        int sum=0;
+        while(temp>0){
+            int digit=temp%10;
+            sum+=digit*digit*digit;
+            temp/=10;
+        }
+        if(sum==n){
+            return true;
+        }
+        return false;
+    }
+}
