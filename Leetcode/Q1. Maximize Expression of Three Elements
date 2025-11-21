@@ -1,0 +1,15 @@
+Choose three elements a, b, and c from nums at distinct indices such that the value of the expression a + b - c is maximized.
+Return an integer denoting the maximum possible value of this expression.
+Example 1:
+Input: nums = [1,4,2,5]
+Output: 8
+----------------------------------------------------------------------------
+class Solution {
+    public int maximizeExpressionOfThree(int[] nums) {
+        Arrays.sort(nums);
+        int a=nums[nums.length-1];
+        int b=nums[nums.length-2];
+        int c=nums[0];
+        return a+b-c;
+    }
+}
