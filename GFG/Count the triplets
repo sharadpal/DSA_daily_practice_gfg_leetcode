@@ -1,0 +1,33 @@
+Examples:
+
+Input: arr[] = [1, 5, 3, 2]
+Output: 2 
+Explanation: There are 2 triplets: 1 + 2 = 3 and 3 +2 = 5
+Input: arr[] = [2, 3, 4]
+Output: 0
+Explanation: No such triplet exits
+-------------------------------------------------------
+
+class Solution {
+    int countTriplet(int arr[]) {
+        // code here
+        int count=0;
+        Arrays.sort(arr);
+        for(int i=arr.length-1;i>=2;i--){
+            int l=0, r=i-1;
+            while(l<r){
+                
+                if(arr[l]+arr[r]==arr[i]){
+                    count++;
+                    l++;
+                    r--;
+                }else if(arr[l]+arr[r]>arr[i]){
+                    r--;
+                }else{
+                    l++;
+                }
+            }
+        } 
+        return count;
+    }
+}
