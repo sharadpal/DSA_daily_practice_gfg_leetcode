@@ -1,0 +1,21 @@
+Examples:
+
+Input: arr[] = [1, 1, 2, 2, 2]
+Output: 2
+Explanation: In the given array all element appear two times except 2 which appears thrice.
+-------------------------------------------------------------------------------------------
+
+class Solution {
+    int getSingle(int arr[]) {
+        HashMap<Integer,Integer>map= new HashMap<>();
+        for(int ele: arr){
+            map.put(ele,map.getOrDefault(ele,0)+1);
+        }
+        for(int num: map.keySet()){
+            if(map.get(num)%2!=0){
+                return num;
+            }
+        }
+        return -1;
+    }
+}
