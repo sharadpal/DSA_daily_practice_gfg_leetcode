@@ -1,0 +1,27 @@
+Examples :
+
+Input:arr[] = [1,2,3,3,4]
+Output: [3, 2]
+Explanation: In the given array, 3 is occuring two times.
+-------------------------------------------------------------------
+
+class Solution {
+    public ArrayList<Integer> findRepeating(int[] arr) {
+        // code here
+        ArrayList<Integer>list = new ArrayList<>();
+        HashMap<Integer,Integer>map= new HashMap<>();
+        for(int ele:arr){
+            map.put(ele,map.getOrDefault(ele,0)+1);
+        }
+        for(int x: map.keySet()){
+            if(map.get(x)>1){
+                list.add(x);
+                list.add(map.get(x));
+                return list;
+            }
+        }
+        list.add(-1);
+        list.add(-1);
+        return list;
+    }
+}
