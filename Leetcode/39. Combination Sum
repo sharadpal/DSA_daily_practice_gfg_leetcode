@@ -1,0 +1,31 @@
+Example 1:
+
+Input: candidates = [2,3,6,7], target = 7
+Output: [[2,2,3],[7]]
+Explanation:
+2 and 3 are candidates, and 2 + 2 + 3 = 7. Note that 2 can be used multiple times.
+7 is a candidate, and 7 = 7.
+These are the only two combinations.
+---------------------------------------
+
+class Solution {
+    List<List<Integer>> res= new ArrayList<>();
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        generateCombinations(candidates,target,0,new ArrayList<Integer>());
+        return res;
+    }
+    void generateCombinations(int []candidates,int currTarget,int position,List<Integer>currCombination){
+        if(currTarget==0) {
+            res.add(new ArrayList<>(currCombination));
+            return ;
+        }
+        if(position==candidates.length) return;
+        if(candidates[position]<=currTarget){
+            currCombination.add(candidates[position]);
+            generateCombinations(candidates,currTarget-candidates[position],position,currCombination);
+            currCombination.remove(currCombination.size()-1);
+        }
+        generateCombinations(candidates,currTarget,position+1,currCombination);
+    }
+    
+}
