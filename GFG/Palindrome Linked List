@@ -1,0 +1,19 @@
+class Solution {
+    public boolean isPalindrome(Node head) {
+        // code here
+        Stack<Integer>s = new Stack<>();
+        Node temp=head;
+        while(temp!=null){
+            s.push(temp.data);
+            temp=temp.next;
+        }
+        while(head!=null){
+            int p= s.pop();
+            if(head.data!=p){
+                return false;
+            }
+            head=head.next;
+        }
+        return true;
+    }
+}
