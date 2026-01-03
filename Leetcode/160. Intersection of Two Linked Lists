@@ -1,0 +1,20 @@
+Input: intersectVal = 8, listA = [4,1,8,4,5], listB = [5,6,1,8,4,5], skipA = 2, skipB = 3
+Output: Intersected at '8'
+------------------------------------------
+
+public class Solution {
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        HashSet<ListNode> set= new HashSet<>();
+        ListNode curr1= headA;
+        while(curr1!=null){
+            set.add(curr1);
+            curr1=curr1.next;
+        }
+        ListNode curr2= headB;
+        while(curr2!=null){
+            if(set.contains(curr2))return curr2;
+            curr2=curr2.next;
+        }
+        return null;
+    }
+}
