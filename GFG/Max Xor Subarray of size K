@@ -1,0 +1,23 @@
+Examples:
+
+Input: arr[] = [2, 5, 8, 1, 1, 3], k = 3
+Output: 15
+Explanation: arr[0] ^ arr[1] ^ arr[2] = 15, which is maximum.
+----------------------------------------
+
+class Solution {
+    public int maxSubarrayXOR(int[] arr, int k) {
+        // code here
+        int ans=Integer.MIN_VALUE;
+        int xor= 0;
+        for(int i=0;i<k;i++){
+            xor^=arr[i];
+        }
+        ans=xor;
+        for(int i=k;i<arr.length;i++){
+            xor=xor^arr[i-k]^arr[i];
+            ans= Math.max(ans,xor);
+        }
+        return ans;
+    }
+}
