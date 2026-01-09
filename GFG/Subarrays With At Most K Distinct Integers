@@ -1,0 +1,29 @@
+Examples:
+
+Input: arr[] = [1, 2, 2, 3], k = 2
+Output: 9
+Explanation: Subarrays with at most 2 distinct elements are: [1], [2], [2], [3], [1, 2], [2, 2], [2, 3], [1, 2, 2] and [2, 2, 3].
+-------------------
+
+class Solution {
+    public int countAtMostK(int arr[], int k) {
+        // code here
+        int left=0 , count=0;
+        HashMap<Integer, Integer> map= new HashMap<>();
+        
+        for(int r=0;r<arr.length;r++){
+            map.put(arr[r], map.getOrDefault(arr[r],0)+1);
+            
+            while(map.size()>k){
+                map.put(arr[left], map.get(arr[left])-1);
+                
+                if(map.get(arr[left])==0){
+                    map.remove(arr[left]);
+                }
+                left++;
+            }
+            count+=(r-left +1);
+        }
+        return count;
+    }
+}
