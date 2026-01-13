@@ -1,0 +1,48 @@
+Example 1:
+
+Input: squares = [[0,0,1],[2,2,1]]
+Output: 1.00000
+Explanation:
+Any horizontal line between y = 1 and y = 2 will have 1 square unit above it and 1 square unit below it. The lowest option is 1.
+
+---------------------------------------
+class Solution {
+    public double separateSquares(int[][] squares) {
+        double left= Double.MAX_VALUE,  right= 0;
+        double area=0.0;
+        for(int square[] : squares){
+            double valueY= square[1];
+            double side= square[2];
+            area+= (double) side * side;
+            left= Math.min(valueY, left);
+            right =Math.max(valueY+side, right);
+        }
+
+        // binaray search
+
+        while(left<right){
+            if(right-left < Math.pow(10, -5)) break;
+            double mid= (left+ right)/2.0;
+            double aboveArea= getArea(mid, squares);
+            double belowArea=  area- aboveArea;
+
+            if(aboveArea> belowArea) left= mid;
+            else right= mid;
+        }
+        return left;
+    }
+
+    double getArea ( double yline, int [][] squares){
+        double area=0.0;
+        for(int square[] : squares){
+            double y= square[1];
+            double side= square[2];
+            if(y>= yline){
+                area+=(side * side);
+            } else if((y+side) >= yline){
+                area+=(y + side - yline) * side;
+            }
+        }
+        return area;
+    }
+}
