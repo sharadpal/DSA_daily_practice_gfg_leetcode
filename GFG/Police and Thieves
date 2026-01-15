@@ -1,0 +1,32 @@
+Examples:
+
+Input: arr[] = ['P', 'T', 'T', 'P', 'T'], k = 1
+Output: 2
+Explanation: Maximum 2 thieves can be caught. First policeman catches first thief and second police man can catch either second or third thief.
+
+----------------------------------------
+
+class Solution {
+    public int catchThieves(char[] arr, int k) {
+        // code here
+        int n= arr.length;
+        int polic=0, thief=0;
+        while(polic< n && arr[polic]!='P') polic++;
+        while(thief< n && arr[thief]!='T') thief++;
+        
+        int count=0;
+        while(polic<n && thief<n){
+            if(Math.abs(polic - thief)<= k){
+                count++;
+                polic++;
+                thief++;
+            }
+            else if( polic< n && polic < thief) polic++;
+            else if(thief< n && thief< polic) thief++;
+            
+            while(polic< n && arr[polic]!='P') polic++;
+            while(thief< n && arr[thief]!='T') thief++;
+        }
+        return count;
+    }
+}
