@@ -1,0 +1,32 @@
+Input: bottomLeft = [[1,1],[2,2],[3,1]], topRight = [[3,3],[4,4],[6,6]]
+
+Output: 1
+Explanation:
+
+A square with side length 1 can fit inside either the intersecting region of rectangles 0 and 1 or the intersecting region of
+rectangles 1 and 2. Hence the maximum area is 1. It can be shown that a square with a greater side length can not fit inside any
+intersecting region of two rectangles.
+
+------------------------------
+
+class Solution {
+    public long largestSquareArea(int[][] bottomLeft, int[][] topRight) {
+        int n= bottomLeft.length;
+        long maxside=0;
+        for(int i=0;i<n;i++){
+            for(int j=i+1;j<n;j++){
+                int left= Math.max(bottomLeft[i][0], bottomLeft[j][0]);
+                int right= Math.min(topRight[i][0], topRight[j][0]);
+
+                int width= right-left;
+                int top= Math.min(topRight[i][1],topRight[j][1]);
+                int bottom= Math.max(bottomLeft[i][1],bottomLeft[j][1]);
+
+                int length= top-bottom;
+                int side= Math.min(width,length);
+                maxside=Math.max(maxside, side);
+            }
+        }
+        return maxside * maxside;
+    }
+}
