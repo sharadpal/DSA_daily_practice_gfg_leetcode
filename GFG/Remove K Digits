@@ -1,0 +1,34 @@
+Examples:
+
+Input: s = "4325043", k = 3
+Output: 2043
+Explanation: Remove the three digits 4, 3, and 5 to form the new number "2043" which is smallest among all possible removal.
+--------------
+
+class Solution {
+    public String removeKdig(String s, int k) {
+        // code here
+        Stack<Character>st= new Stack<>();
+        for(char c: s.toCharArray()){
+            while(!st.isEmpty() && c<st.peek() && k>0){
+                st.pop();
+                k--;
+            }
+            st.push(c);
+        }
+        while(!st.isEmpty() && k>0){
+            st.pop();
+            k--;
+        }
+        if(st.isEmpty()) return "0";
+        StringBuilder n=new StringBuilder();
+        while(!st.isEmpty()){
+            n.append(st.pop());
+        }
+        n.reverse();
+        while (n.length() > 1 && n.charAt(0) == '0') {
+            n.deleteCharAt(0);
+        }
+        return n.toString();
+    }
+}
