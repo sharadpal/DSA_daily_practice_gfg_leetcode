@@ -1,0 +1,31 @@
+Examples:
+
+Input: n = 2
+Output: 1
+Explanation: There is only one possibe valid expressions of length 2 i.e., "()".
+Input: n = 4
+Output: 2
+Explanation: Possibe valid expressions of length 4 are "(())" and "()()".
+--------------
+
+class Solution {
+    int ans = 0;
+
+    void func(int l, int r) {
+        if (l == 0 && r == 0) {
+            ans++;
+            return;
+        }
+        if (l > r) return;
+
+        if (l > 0) func(l - 1, r);
+        if (r > 0) func(l, r - 1);
+    }
+
+    int findWays(int n) {
+        if ((n & 1) == 1) return 0;   // n must be even
+        ans = 0;
+        func(n / 2, n / 2);
+        return ans;
+    }
+}
