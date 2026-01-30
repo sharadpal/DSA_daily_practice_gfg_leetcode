@@ -1,0 +1,24 @@
+Examples:
+
+Input: q[] = [2, 4, 3, 1]
+Output: [2, 3, 4, 1]
+Explanation: We place the first element of the first half 2 and after that 
+place the first element of second half 3 and after that repeat
+the same process one more time so the resulting queue will be [2, 3, 4, 1]
+----------------------
+
+class Solution {
+    public void rearrangeQueue(Queue<Integer> q) {
+        // code here
+        int n=q.size();
+        Queue<Integer>pq= new LinkedList<>();
+        for(int i=0;i<n/2;i++){
+            pq.add(q.poll());
+        }
+        while(!pq.isEmpty()){
+            q.add(pq.poll());
+            q.add(q.poll());
+        }
+        
+    }
+}
