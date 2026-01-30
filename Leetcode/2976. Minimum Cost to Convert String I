@@ -1,0 +1,43 @@
+Example 1:
+
+Input: source = "abcd", target = "acbe", original = ["a","b","c","c","e","d"], changed = ["b","c","b","e","b","e"], cost = [2,5,5,1,2,20]
+Output: 28
+Explanation: To convert the string "abcd" to string "acbe":
+- Change value at index 1 from 'b' to 'c' at a cost of 5.
+- Change value at index 2 from 'c' to 'e' at a cost of 1.
+- Change value at index 2 from 'e' to 'b' at a cost of 2.
+- Change value at index 3 from 'd' to 'e' at a cost of 20.
+The total cost incurred is 5 + 1 + 2 + 20 = 28.
+It can be shown that this is the minimum possible cost.
+-------------------------------------------------------------------
+
+class Solution {
+    public long minimumCost(String source, String target, char[] original, char[] changed, int[] cost) {
+        long ans=0;
+        long mincost[][]= new long[26][26];
+        for(long[] c:mincost){
+            Arrays.fill(c, Integer.MAX_VALUE);
+        }
+        for(int i=0;i<original.length;i++){
+            int src= original[i]-'a'; // 0 - 25
+            int dest= changed[i]-'a';
+            mincost[src][dest]= Math.min(mincost[src][dest],cost[i]);
+        }
+        // floydd Warshell algo
+        for(int k=0;k<26;k++){
+            for(int i=0;i<26;i++){
+                for(int j=0;j<26;j++){
+                    mincost[i][j]=Math.min(mincost[i][j],mincost[i][k] + mincost[k][j]);
+                }
+            }
+        }
+        for(int i=0;i<source.length();i++){
+            int s= source.charAt(i)-'a';
+            int d=target.charAt(i)-'a';
+            if(s==d) continue;
+            if(mincost[s][d]==Integer.MAX_VALUE) return -1;
+            ans+=mincost[s][d];
+        }
+        return ans;
+    }
+}
