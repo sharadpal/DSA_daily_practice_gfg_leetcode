@@ -1,0 +1,39 @@
+Example 1:
+
+Input: nums = [3,-2,1,1]
+Output: [1,1,1,3]
+Explanation:
+
+For nums[0] that is equal to 3, If we move 3 steps to right, we reach nums[3]. So result[0] should be 1.
+For nums[1] that is equal to -2, If we move 2 steps to left, we reach nums[3]. So result[1] should be 1.
+For nums[2] that is equal to 1, If we move 1 step to right, we reach nums[3]. So result[2] should be 1.
+For nums[3] that is equal to 1, If we move 1 step to right, we reach nums[0]. So result[3] should be 3.
+-------------------
+
+class Solution {
+    public int[] constructTransformedArray(int[] nums) {
+        int n = nums.length;
+        int ans[] = new int[n];
+
+        for(int i = 0; i < n; i++) {
+            // Calculate the range when moving backwards (for negative nums[i])
+            int range = i - Math.abs(nums[i]);
+            int index = -1;
+            
+            // Check if the backward movement stays within bounds
+            if(range >= 0) {
+                index = range;
+            } else {
+                // Handle wrap-around for backward movement using modulo arithmetic
+                index = (n - Math.abs(nums[i] + i) % n) % n;
+            }
+            
+            // Determine the target index based on the sign of nums[i]
+            // Positive: move forward with wrap-around
+            // Negative: use the calculated backward index
+            ans[i] = nums[i] >= 0 ? nums[(i + nums[i]) % n] : nums[index];
+        }
+        
+        return ans;
+    }
+}
