@@ -1,0 +1,58 @@
+Examples:
+
+Input: a[] = [5, 2, 8] , b[] = [10, 7, 12] , c[] = [9, 14, 6]
+Output: [7, 6, 5]
+Explanation: The triplet [5, 7, 6]  has difference (maximum - minimum)= (7 - 5) = 2 which is minimum of all triplets.  
+---------------
+
+class Solution {
+    int[] smallestDiff(int a[], int b[], int c[]) {
+        // write code here
+        Arrays.sort(a);
+        Arrays.sort(b);
+        Arrays.sort(c);
+        int i=0, j=0,k=0;
+        
+        int bestDif= Integer.MAX_VALUE;
+        int bestSum= Integer.MAX_VALUE;
+        
+        int ans[]= new int[3];
+        
+        while(i<a.length && j<b.length && k<c.length){
+            int x= a[i];
+            int y=b[j];
+            int z= c[k];
+            
+            int maxVal= Math.max(x, Math.max(y,z));
+            int minVal= Math.min(x, Math.min(y,z));
+            
+            int diff= maxVal- minVal;
+            int sum=x+y+z;
+            
+            if(diff<bestDif || (diff==bestDif && sum<bestSum)){
+                bestDif=diff;
+                bestSum=sum;
+                
+                ans[0]=x;
+                ans[1]=y;
+                ans[2]=z;
+            }
+            if(minVal ==x){
+                i++;
+            }
+            else if (minVal == y) j++;
+            else k++;
+        }
+        Arrays.sort(ans);
+        i = 0;
+        j = 2;
+        while(i <= j) {
+            int temp = ans[i];
+            ans[i] = ans[j];
+            ans[j] = temp;
+            i++;
+            j--;
+        }
+        return ans;
+    }
+}
