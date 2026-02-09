@@ -1,0 +1,19 @@
+Input: root = [3,9,20,null,null,15,7]
+Output: true
+
+class Solution {
+    private int height(TreeNode root){
+        if(root==null) return 0;
+        int lefth= height(root.left);
+        int righth=height(root.right);
+        return Math.max(lefth, righth)+1;
+    }
+    public boolean isBalanced(TreeNode root) {
+        if(root==null) return true;
+        int lefth= height(root.left);
+        int righth=height(root.right);
+
+        if(Math.abs(lefth-righth)>1) return false;
+        return isBalanced(root.left) && isBalanced(root.right);
+    }
+}
