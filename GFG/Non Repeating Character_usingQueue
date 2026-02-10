@@ -1,0 +1,21 @@
+xamples:
+
+Input: s = "geeksforgeeks"
+Output: 'f'
+Explanation: In the given string, 'f' is the first character in the string which does not repeat.
+---------------
+
+class Solution {
+    public char nonRepeatingChar(String s) {
+        // code here
+        Queue<Character> q= new LinkedList<>();
+        int freq[]=new int[26];
+        for(int i= 0;i<s.length();i++){
+            char ch= s.charAt(i);
+            freq[ch-'a']++;
+            q.add(ch);
+            while(!q.isEmpty() && freq[q.peek()-'a']>1) q.remove();
+        }
+        return q.isEmpty() ? '$' : q.peek();
+    }
+}
