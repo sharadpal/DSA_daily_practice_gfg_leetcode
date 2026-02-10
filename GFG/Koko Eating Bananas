@@ -1,0 +1,39 @@
+xamples:
+
+Input: arr[] = [5, 10, 3], k = 4
+Output: 5
+Explanation: If Koko eats at the rate of 5 bananas per hour:
+First pile of 5 bananas will be finished in 1 hour.
+Second pile of 10 bananas will be finished in 2 hours.
+Third pile of 3 bananas will be finished in 1 hours.
+Therefore, Koko can finish all piles of bananas in 1 + 2 + 1 = 4 hours.
+--------------------------------
+
+class Solution {
+    
+    private long eatTime(int []arr, int k){
+        long time= 0;
+        for(int p: arr){
+            time+=(int)Math.ceil(1.0 * p / k); 
+            // ceil return smal int greater than or equal to x like 4/3=2 return not 1
+        }
+        return time;
+    }
+    public int kokoEat(int[] arr, int k) {
+        // code here
+        int highVal= Arrays.stream(arr).max().getAsInt();// find max ele of this arr
+        int lowVal=1;
+        int ans=0;
+        while(lowVal<=highVal){
+            int mid= lowVal+(highVal-lowVal)/2;
+            if(eatTime(arr,mid)<=k){
+                ans=mid;
+                highVal= mid-1;
+            }else {
+                lowVal= mid+1;
+            }
+        }
+        return ans;
+    }
+}
+ 
