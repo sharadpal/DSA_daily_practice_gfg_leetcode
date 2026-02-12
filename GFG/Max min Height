@@ -1,0 +1,59 @@
+Examples:
+
+Input: arr[] = [2, 3, 4, 5, 1], k = 2, w = 2
+Output: 2
+Explanation: The minimum height after watering is 2.
+Day 1: Water the last two flowers -> arr becomes [2, 3, 4, 6, 2]
+Day 2: Water the last two flowers -> arr becomes [2, 3, 4, 7, 3]
+-------------------
+
+class Solution {
+    
+    public boolean isPossible(int[]arr,int k,int w,int h)
+    {
+        int n=arr.length;
+        int []prefix= new int[n+1];
+        int days=0;
+        
+        for(int i=0;i<n;i++)
+        {
+            if(i>0)
+            {
+                prefix[i]+=prefix[i-1];
+            }
+            if(prefix[i]+arr[i]<h)
+            {
+                int req=h-(prefix[i]+arr[i]);
+                prefix[i]+=req;
+                days+=req;
+                if(days>k)
+        return false;
+                if(i+w<=n)
+                {
+                    prefix[i+w]-=req;
+                }
+            }
+        }
+        
+        return true;
+    }
+    public int maxMinHeight(int[] arr, int k, int w) {
+        // code here
+         int min=0;
+        int max=Integer.MAX_VALUE;
+        int ans=0;
+        while(min<=max)
+        {
+            int mid=min+(max-min)/2;
+            if(isPossible(arr,k,w,mid))
+            {
+                ans=mid;
+                min=mid+1;
+            }
+            else{
+                max=mid-1;
+            }
+        }
+        return ans;
+    }
+}
