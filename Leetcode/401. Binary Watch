@@ -1,0 +1,27 @@
+Example 1:
+
+Input: turnedOn = 1
+Output: ["0:01","0:02","0:04","0:08","0:16","0:32","1:00","2:00","4:00","8:00"]
+----------------------------------------------------------------------------------------
+
+class Solution {
+    public List<String> readBinaryWatch(int turnedOn) {
+        List<String>list =new ArrayList<>();
+        for(int h=0;h<12;h++){
+            for(int m=0;m<60;m++){
+                if(Integer.bitCount(h)+ Integer.bitCount(m)==turnedOn){
+                    StringBuilder st= new StringBuilder();
+                    st.append(h);
+                    st.append(":");
+                    if(m<10){
+                        st.append("0" + m);
+                    }else{
+                        st.append(m);
+                    }
+                    list.add(st.toString());
+                }
+            }
+        }
+        return list;
+    }
+}
