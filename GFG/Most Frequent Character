@@ -1,0 +1,28 @@
+Examples:
+
+Input: s = "testsample"
+Output: 'e'
+Explanation: 'e' is the character which is having the highest frequency.
+---------------
+
+class Solution {
+    public char getMaxOccuringChar(String s) {
+        // code here
+        HashMap<Character, Integer> map= new HashMap<>();
+        for(char a: s.toCharArray()){
+            map.put(a, map.getOrDefault(a,0)+1);
+        }
+        char ans='z';
+        int max=0;
+        
+         // find max occurring character
+        for(char x:map.keySet()){
+            int freq=map.get(x);
+            if(freq>max ||(freq == max && ans> x )){
+                max= freq;
+                ans= x;
+            }
+        }
+        return ans;
+    }
+}
