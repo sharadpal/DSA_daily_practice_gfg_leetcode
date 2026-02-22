@@ -1,0 +1,29 @@
+Examples: 
+
+Input: arr[] = [4, 2, 2, 6, 4], k = 6
+Output: 4
+Explanation: The subarrays having XOR of their elements as 6 are [4, 2], [4, 2, 2, 6, 4], [2, 2, 6], and [6]. Hence, the answer is 4.
+-------------
+
+class Solution {
+    public long subarrayXor(int arr[], int k) {
+        // code here
+        int count=0;
+        int xor=0; // curr xor
+        
+        // xor -> count
+        
+        Map<Integer,Integer> map= new HashMap<>();
+        map.put(0,1);
+        
+        for(int i=0;i<arr.length;i++){
+            xor^=arr[i];
+            int target=xor^k;
+            
+            count+=map.getOrDefault(target,0);
+            
+            map.put(xor, map.getOrDefault(xor,0)+1);
+        }
+        return count;
+    }
+}
