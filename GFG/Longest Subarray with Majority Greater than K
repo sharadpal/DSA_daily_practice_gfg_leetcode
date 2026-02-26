@@ -1,0 +1,30 @@
+Examples:
+
+Input: arr[] = [1, 2, 3, 4, 1], k = 2
+Output: 3
+Explanation: The subarray [2, 3, 4] or [3, 4, 1] satisfy the given condition, 
+and there is no subarray of length 4 or 5 which will hold the given condition, so the answer is 3.
+----------------------------------------------
+
+class Solution {
+    public int longestSubarray(int[] arr, int k) {
+        // Code Here
+        int n=arr.length;
+        int maxlen=0, prefixSum=0;
+        HashMap<Integer,Integer>map= new HashMap<>();
+        
+        for(int i=0;i<n;i++){
+            if(arr[i]>k) prefixSum+=1;
+            else prefixSum-=1;
+            if(prefixSum>0) maxlen=i+1;
+            if(map.containsKey(prefixSum-1)){
+                int len= i-map.get(prefixSum-1);
+                maxlen= Math.max(maxlen, len);
+            }
+            if(!map.containsKey(prefixSum)){
+                map.put(prefixSum,i);
+            }
+        }
+        return maxlen;
+    }
+}
