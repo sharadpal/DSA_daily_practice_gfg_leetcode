@@ -1,0 +1,28 @@
+Examples:
+
+Input: arr[] = [9, 12, 23, 10, 12, 12, 15, 23, 14, 12, 15]
+Output: [12, 15, 23]
+Explanation: The numbers 12, 15, and 23 each appear an even number of times.
+-------------------
+
+class Solution {
+    public List<Integer> findEvenOccurrences(int[] arr) {
+        List<Integer> list = new ArrayList<>();
+        HashMap<Integer,Integer> map = new HashMap<>();
+        
+        // count frequency
+        for(int ele : arr){
+            map.put(ele, map.getOrDefault(ele,0)+1);
+        }
+        HashSet<Integer> set = new HashSet<>();
+        // iterate on array (NOT map)
+        for(int ele : arr){
+            if(map.get(ele)%2==0 && !set.contains(ele)){
+                list.add(ele);
+                set.add(ele);
+            }
+        }
+        if(list.size()==0) list.add(-1);
+        return list;
+    }
+}
