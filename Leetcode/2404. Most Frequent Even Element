@@ -1,0 +1,34 @@
+Example 1:
+
+Input: nums = [0,1,2,2,4,4,1]
+Output: 2
+Explanation:
+The even elements are 0, 2, and 4. Of these, 2 and 4 appear the most.
+We return the smallest one, which is 2.
+-----------------
+
+class Solution {
+    public int mostFrequentEven(int[] nums) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        
+        for (int num : nums) {
+            if (num % 2 == 0) {   // count only even numbers
+                map.put(num, map.getOrDefault(num, 0) + 1);
+            }
+        }
+        
+        int maxFreq = 0;
+        int ans = -1;
+        
+        for (int num : map.keySet()) {
+            int freq = map.get(num);
+            
+            if (freq > maxFreq || (freq == maxFreq && num < ans)) {
+                maxFreq = freq;
+                ans = num;
+            }
+        }
+        
+        return ans;
+    }
+}
