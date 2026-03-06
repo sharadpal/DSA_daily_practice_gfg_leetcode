@@ -1,0 +1,26 @@
+Example 1:
+
+Input: s = "0100"
+Output: 1
+Explanation: If you change the last character to '1', s will be "0101", which is alternating.
+-----------------------------------
+
+class Solution {
+    public int minOperations(String s) {
+        int n = s.length();
+        int mismatchStart0 = 0; // expected: 0 1 0 1...
+        int mismatchStart1 = 0; // expected: 1 0 1 0...
+
+        for (int i = 0; i < n; i++) {
+            char c = s.charAt(i);
+
+            char exp0 = (i % 2 == 0) ? '0' : '1';
+            char exp1 = (i % 2 == 0) ? '1' : '0';
+
+            if (c != exp0) mismatchStart0++;
+            if (c != exp1) mismatchStart1++;
+        }
+
+        return Math.min(mismatchStart0, mismatchStart1);
+    }
+}
