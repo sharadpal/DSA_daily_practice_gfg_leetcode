@@ -1,0 +1,55 @@
+Example:
+
+Input: m = 6, n = 3, x = 12
+Output: 25
+Explanation: There are 25 total ways to get the Sum 12 using 3 dices with faces from 1 to 6.
+-------------------
+
+// class Solution {
+      //----------- TLE
+//     static int noOfWays(int m, int n, int x) {
+//         // code here
+//         return solve(m,n,x);
+//     }
+//     static private int solve(int m, int dice,int sum){
+//         if(dice==0 && sum==0) return 1;
+//         if(dice==0 || sum<0) return 0;
+        
+//         int way=0;
+//         for(int i=1;i<=m;i++){
+//             way+=solve(m,dice-1,sum-i);
+//         }
+//         return way;
+//     }
+// };
+
+//--------------->> SECOND METHOD
+
+class Solution {
+    static int[][]dp;
+    static int noOfWays(int m, int n, int x) {
+        // code here
+        dp= new int[n+1][x+1];
+        for(int i=0;i<=n;i++){
+            for(int j=0;j<=x;j++){
+                dp[i][j]=-1;
+            }
+        }
+        return solve(m,n,x);
+    }
+    static private int solve(int m, int dice,int sum){
+        if(dice==0 && sum==0) return 1;
+        if(dice==0 || sum<0) return 0;
+        
+        if(dp[dice][sum]!=-1){
+            return dp[dice][sum];
+        }
+        
+        
+        int way=0;
+        for(int i=1;i<=m;i++){
+            way+=solve(m,dice-1,sum-i);
+        }
+        return dp[dice][sum]=way;
+    }
+};
