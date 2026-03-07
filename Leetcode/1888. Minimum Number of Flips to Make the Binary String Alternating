@@ -1,0 +1,52 @@
+Example 1:
+
+Input: s = "111000"
+Output: 2
+Explanation: Use the first operation two times to make s = "100011".
+Then, use the second operation on the third and sixth elements to make s = "101010".
+--------------------
+
+class Solution {
+    public int minFlips(String s) {
+        String str = s + s;
+        int n = s.length();
+
+        int zeroStart = 0; // pattern: 010101...
+        int oneStart = 0;  // pattern: 101010...
+        int ans = Integer.MAX_VALUE;
+
+        for (int i = 0; i < 2 * n; i++) {
+            char ch = str.charAt(i);
+
+            // add current char
+            if (i % 2 == 0) {
+                if (ch != '0') zeroStart++;
+                if (ch != '1') oneStart++;
+            } else {
+                if (ch != '1') zeroStart++;
+                if (ch != '0') oneStart++;
+            }
+
+            // remove left char if window size > n
+            if (i >= n) {
+                int prev = i - n;
+                char pch = str.charAt(prev);
+
+                if (prev % 2 == 0) {
+                    if (pch != '0') zeroStart--;
+                    if (pch != '1') oneStart--;
+                } else {
+                    if (pch != '1') zeroStart--;
+                    if (pch != '0') oneStart--;
+                }
+            }
+
+            // when window size == n
+            if (i >= n - 1) {
+                ans = Math.min(ans, Math.min(zeroStart, oneStart));
+            }
+        }
+
+        return ans;
+    }
+}
