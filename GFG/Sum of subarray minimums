@@ -1,0 +1,46 @@
+Examples:
+
+Input: arr[] = [10, 20]
+Output: 40
+Explanation: Subarrays are [10], [20], [10, 20]. Minimums are 10, 20, 10.
+Sum of all these is 40.
+----------------------------
+
+class Solution {
+    public int sumSubMins(int[] arr) {
+        int n = arr.length;
+        int[] prevSmEle = new int[n];
+        int[] nextSmEle = new int[n];
+        Stack<Integer> st = new Stack<>();
+
+        // Previous smaller element
+        for (int i = 0; i < n; i++) {
+            while (!st.isEmpty() && arr[st.peek()] > arr[i]) {
+                st.pop();
+            }
+            prevSmEle[i] = st.isEmpty() ? -1 : st.peek();
+            st.push(i);
+        }
+
+        st.clear();
+
+        // Next smaller element
+        for (int i = n - 1; i >= 0; i--) {
+            while (!st.isEmpty() && arr[st.peek()] >= arr[i]) {
+                st.pop();
+            }
+            nextSmEle[i] = st.isEmpty() ? n : st.peek();
+            st.push(i);
+        }
+
+        long ans = 0;
+
+        for (int i = 0; i < n; i++) {
+            long left = i - prevSmEle[i];
+            long right = nextSmEle[i] - i;
+            ans += left * right * arr[i];
+        }
+
+        return (int) ans;
+    }
+}
