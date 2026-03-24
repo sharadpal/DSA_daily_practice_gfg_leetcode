@@ -1,0 +1,79 @@
+Example 1:
+
+Input: grid = [[1,2],[3,4]]
+Output: [[24,12],[8,6]]
+Explanation: p[0][0] = grid[0][1] * grid[1][0] * grid[1][1] = 2 * 3 * 4 = 24
+p[0][1] = grid[0][0] * grid[1][0] * grid[1][1] = 1 * 3 * 4 = 12
+p[1][0] = grid[0][0] * grid[0][1] * grid[1][1] = 1 * 2 * 4 = 8
+p[1][1] = grid[0][0] * grid[0][1] * grid[1][0] = 1 * 2 * 3 = 6
+So the answer is [[24,12],[8,6]].
+---------------------------------------------
+
+// class Solution { ---------- THESE CODE  ONLY PASS 413 TEST CASE
+//     public int[][] constructProductMatrix(int[][] grid) {
+//         int mod=12345;
+//         int m=grid.length;
+//         int n=grid[0].length;
+//         int arr[]=new int[m*n];
+
+//         int ans[][]=new int[m][n];
+//         long mul=1;
+//         int k=0;
+//         for(int i=0;i<m;i++){
+//             for(int j=0;j<n;j++){
+//                 arr[k++]=grid[i][j];
+//                 mul=mul*grid[i][j];
+//             }
+//         }
+//         int s=0;
+//         for(int i=0;i<m;i++){
+//             for(int j=0;j<n;j++){
+//                 ans[i][j]=((int)mul/arr[s++])%mod;
+//             }
+//         }
+//         return ans;
+//     }
+// }
+
+
+
+class Solution {
+    public int[][] constructProductMatrix(int[][] grid) {
+        int mod = 12345;
+        int m = grid.length;
+        int n = grid[0].length;
+
+        int ans[][] = new int[m][n];
+        int size = m * n;
+        int arr[] = new int[size];
+
+        int k = 0;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                arr[k++] = grid[i][j] % mod;
+            }
+        }
+
+        long prefix[] = new long[size];
+        long suffix[] = new long[size];
+
+        prefix[0] = 1;
+        for (int i = 1; i < size; i++) {
+            prefix[i] = (prefix[i - 1] * arr[i - 1]) % mod;
+        }
+
+        suffix[size - 1] = 1;
+        for (int i = size - 2; i >= 0; i--) {
+            suffix[i] = (suffix[i + 1] * arr[i + 1]) % mod;
+        }
+
+        int s = 0;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                ans[i][j] = (int)((prefix[s] * suffix[s]) % mod);
+                s++;
+            }
+        }
+        return ans;
+    }
+}
