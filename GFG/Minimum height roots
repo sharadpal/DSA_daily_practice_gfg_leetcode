@@ -1,0 +1,57 @@
+Examples: 
+
+Input: V = 5, E = 4, edges[][] = [[0, 2], [1, 2], [2, 3], [3, 4]]
+   
+Output: [2, 3]
+Explanation: If we choose vertices 2 or 3 as the root, the resulting tree has the minimum possible height, which is 2
+------------------------------------
+
+class Solution {
+    public ArrayList<Integer> minHeightRoot(int V, int[][] edges) {
+        // Code here
+        ArrayList<Integer> res= new ArrayList<>();
+        if(V==0){
+            res.add(0);
+            return res;
+        }
+        
+        List<Set<Integer>>graph= new ArrayList<>();
+        for(int i=0;i<V;i++){
+            graph.add(new HashSet<>());
+        }
+        
+        for(int[]e:edges){
+            int u=e[0];
+            int v=e[1];
+            graph.get(u).add(v);
+            graph.get(v).add(u);
+        }
+        
+        Queue<Integer>q= new LinkedList<>();
+        for(int i=0;i<V;i++){
+            if(graph.get(i).size()==1){
+                q.add(i);
+            }
+        }
+        int remainingNode=V;
+        while(remainingNode>2){
+            int size=q.size();
+            remainingNode-=size;
+            
+            for(int i=0;i<size;i++){
+                int leaf=q.poll();
+                for(int nei:graph.get(leaf)){
+                    graph.get(nei).remove(leaf);
+                    if(graph.get(nei).size()==1){
+                        q.add(nei);
+                    }
+                }
+            }
+        }
+        
+        while(!q.isEmpty()){
+            res.add(q.poll());
+        }
+        return res;
+    }
+}
