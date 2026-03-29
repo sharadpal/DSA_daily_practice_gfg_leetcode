@@ -1,0 +1,45 @@
+Examples :
+
+Input: arr[] = [5, 2, 6, 4], diff = 3
+Output: 1
+Explanation: There is only one possible partition of this array. Partition : [6, 4], [5, 2]. 
+The subset difference betweensubset sum is: (6 + 4) - (5 + 2) = 3.
+----------------------------
+
+class Solution {
+    public int countPartitions(int[] arr, int diff) {
+        // code here
+        int n=arr.length;
+        int totalSum=0;
+        
+        for(int num:arr){
+            totalSum+=num;
+            
+        }
+        
+        int dp[][]=new int[n][totalSum+1];
+        for(int i=0;i<n;i++){
+            for(int j=0;j<=totalSum;j++){
+                dp[i][j]=-1;
+            }
+        }
+        int ans= solve(0,0,arr,diff,totalSum,dp);
+        if(diff==0) return ans;
+        return ans/2;
+    }
+    
+    private int solve(int i,int sum1,int []arr, int diff, int totalSum, int[][]dp ){
+        if(i==arr.length){
+            int sum2= totalSum-sum1;
+            if(Math.abs(sum1-sum2)==diff) return 1;
+            return 0;
+        }
+        if(dp[i][sum1]!=-1){
+            return dp[i][sum1];
+            
+        }
+        int pick= solve(i+1,sum1+arr[i],arr,diff,totalSum,dp);
+        int notPick= solve(i+1,sum1,arr,diff,totalSum,dp);
+        return dp[i][sum1]=pick+notPick;
+    }
+}
