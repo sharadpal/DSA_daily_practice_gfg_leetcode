@@ -1,0 +1,39 @@
+Example 1:
+
+Input: s1 = "abcdba", s2 = "cabdab"
+Output: true
+Explanation: We can apply the following operations on s1:
+- Choose the indices i = 0, j = 2. The resulting string is s1 = "cbadba".
+- Choose the indices i = 2, j = 4. The resulting string is s1 = "cbbdaa".
+- Choose the indices i = 1, j = 5. The resulting string is s1 = "cabdab" = s2.
+--------------------------------
+
+import java.util.*;
+
+class Solution {
+    public boolean checkStrings(String s1, String s2) {
+        int n = s1.length();
+
+        List<Character> s1even = new ArrayList<>();
+        List<Character> s1odd = new ArrayList<>();
+        List<Character> s2even = new ArrayList<>();
+        List<Character> s2odd = new ArrayList<>();
+
+        for(int i = 0; i < n; i++){
+            if(i % 2 == 0){
+                s1even.add(s1.charAt(i));
+                s2even.add(s2.charAt(i));
+            } else {
+                s1odd.add(s1.charAt(i));
+                s2odd.add(s2.charAt(i));
+            }
+        }
+
+        Collections.sort(s1even);
+        Collections.sort(s1odd);
+        Collections.sort(s2even);
+        Collections.sort(s2odd);
+
+        return s1even.equals(s2even) && s1odd.equals(s2odd);
+    }
+}
