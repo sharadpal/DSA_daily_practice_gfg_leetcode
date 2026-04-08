@@ -1,0 +1,28 @@
+Examples :
+
+Input: arr[] = [0, 1, 0, 1, 0, 0, 1, 1, 1, 0]
+Output: [0, 0, 0, 0, 0, 1, 1, 1, 1, 1]
+Explanation:  After segregation, all the 0's are on the left and 1's are on the right. Modified array will be [0, 0, 0, 0, 0, 1, 1, 1, 1, 1].
+---------------------------------------
+
+class Solution {
+    void segregate0and1(int[] arr) {
+        // code here
+        int [] ans= new int[arr.length];
+        int i=0;
+        for(int n:arr){
+            if(n==0){
+                ans[i++]=n;
+            }
+        }
+        
+        for(int n:arr){
+            if(n==1){
+                ans[i++]=n;
+            }
+        }
+        for(int j=0;j<arr.length;j++){
+            arr[j]=ans[j];
+        }
+    }
+}
