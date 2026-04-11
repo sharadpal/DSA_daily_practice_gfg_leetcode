@@ -1,0 +1,26 @@
+Examples:
+
+Input: arr[] = [1, 4, 5, 3, 7, 9]
+Output: 6
+Explanation: The strictly increasing subarrays are: [1, 4], [1, 4, 5], [4, 5], [3, 7], [3, 7, 9], [7, 9]
+--------------------------------
+
+class Solution {
+    public int countIncreasing(int[] arr) {
+        // code here
+        int n=arr.length;
+        int len=1, ans=0;
+        
+        for(int i=1;i<n;i++){
+            if(arr[i]>arr[i-1]){
+                len++;
+            }
+            else{
+                ans+=len*(len-1)/2;
+                len=1;
+            }
+        }
+        ans+=len*(len-1)/2;
+        return ans;
+    }
+}
