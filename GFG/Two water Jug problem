@@ -1,0 +1,52 @@
+Examples:
+
+Input: m = 3, n = 5, d = 4
+Output: 6
+Explanation: Operations are as follow-
+1. Fill up the 5 litre jug.
+2. Then fill up the 3 litre jug using 5 litre jug. Now 5 litre jug contains 2 litre water.
+3. Empty the 3 litre jug.
+4. Now pour the 2 litre of water from 5 litre jug to 3 litre jug.
+5. Now 3 litre jug contains 2 litre of water and 5 litre jug is empty.
+  Now fill up the 5 litre jug.
+6. Now fill one litre of water from 5 litre jug to 3 litre jug. Now we have 4 litre water in 5 litre jug.
+-------------------------
+
+class Solution {
+    public int minSteps(int m, int n, int d) {
+        // code here
+        if(d>Math.max(m,n)) return -1;
+        if(d%gcd(m,n)!=0) return -1;
+        
+        int ans1= pour(m,n,d);
+        int ans2=pour(n,m,d);
+        return Math.min(ans1,ans2);
+    }
+    
+    private int pour(int fromcap, int tocap,int d){
+        int from= fromcap;
+        int to=0, step=1;
+        while(from!=d && to!=d){
+            int temp= Math.min(from,tocap-to);
+            to+=temp;
+            from-=temp;
+            step++;
+            
+            if(from==d || to ==d) break;
+            if(from==0){
+                from= fromcap;
+                step++;
+            }
+            if(to==tocap){
+                to=0;
+                step++;
+            }
+        }
+        return step;
+    }
+    
+    private int gcd(int a, int b){
+        if(b==0) return a;
+        return gcd(b, a%b);
+    }
+}
