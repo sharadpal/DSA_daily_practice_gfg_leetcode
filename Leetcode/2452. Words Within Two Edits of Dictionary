@@ -1,0 +1,38 @@
+Example 1:
+
+Input: queries = ["word","note","ants","wood"], dictionary = ["wood","joke","moat"]
+Output: ["word","note","wood"]
+Explanation:
+- Changing the 'r' in "word" to 'o' allows it to equal the dictionary word "wood".
+- Changing the 'n' to 'j' and the 't' to 'k' in "note" changes it to "joke".
+- It would take more than 2 edits for "ants" to equal a dictionary word.
+- "wood" can remain unchanged (0 edits) and match the corresponding dictionary word.
+Thus, we return ["word","note","wood"].
+--------------------------------------------
+
+class Solution {
+    public List<String> twoEditWords(String[] queries, String[] dict) {
+        List<String> ans = new ArrayList<>();
+
+        for(String query : queries) {
+            for(String word : dict) {
+                if(checkEquality(query, word)) {
+                    ans.add(query);
+                    break;
+                }
+            }
+        } 
+        return ans;
+    }
+
+    boolean checkEquality(String s1, String s2) {
+        int count = 0;
+        int n = s1.length(), i = 0;
+        while(i<n && count < 3) {
+            if(s1.charAt(i)!=s2.charAt(i))
+                count++;
+            i++;
+        }
+        return count < 3;
+    }
+}
