@@ -1,0 +1,23 @@
+Examples:
+
+Input: arr[] = [1, 2, 3, 4, 5, 5]
+Output: true
+Explanation: We can divide the array into [1, 2, 3, 4] and [5, 5]. The sum of both the subarrays are 10
+-------------------------------
+
+class Solution {
+    public boolean canSplit(int arr[]) {
+        // code here
+        int sum=0;
+        int presum=0;
+        for(int n:arr){
+            sum+=n;
+        }
+        for(int i:arr){
+            presum+=i;
+            int check=sum-presum;
+            if(presum==check) return true;
+        }
+        return false;
+    }
+}
