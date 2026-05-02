@@ -1,0 +1,27 @@
+Examples:
+
+Input: n = 2
+Output: 2
+Explanation: 2 is represented as "10" in binary. It has only one set bit, which is at position 2.
+---------------------
+
+class Solution {
+    public int findPosition(int n) {
+        // code here
+        int count=0;
+        int position=0;
+        int index=1;
+        if(n==0) return -1;
+        while(n>0){
+            if((n&1)==1){
+                count++;
+                position = index;
+            } 
+            n=n>>1;
+            index++;
+            
+        }
+        if(count==1) return position;
+        else return -1;
+    }
+}
