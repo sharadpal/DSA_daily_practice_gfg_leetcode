@@ -1,0 +1,26 @@
+Examples:
+
+Input: arr[] = [10, 20, 9, 40], target = 400
+Output: true
+Explanation: As 10 * 40 = 400, the answer is true.
+---------------------------------------
+
+class Solution {
+    public boolean isProduct(int[] arr, long target) {
+        // code here
+        HashSet<Long>set= new HashSet<>();
+        for(int x: arr){
+            if(x==0){
+                if(target==0) return true;
+            }
+            else{
+                if(target%x==0){
+                    long y= target/x;
+                    if(set.contains(y)) return true;
+                }
+            }
+            set.add((long)x);
+        }
+        return false;
+    }
+}
