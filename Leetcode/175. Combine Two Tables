@@ -1,0 +1,5 @@
+
+select p.firstName, p.lastName,s.city, s.state
+from Person p 
+LEFT JOIN Address s
+ON p.personId= s.personId
