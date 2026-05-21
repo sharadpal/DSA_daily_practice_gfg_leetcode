@@ -1,0 +1,12 @@
+Examples :
+
+Input: n = 7
+Output: true
+Explanation: Binary for 7 is 111 all the bits are set so the output is true.
+-------------------------------
+
+Examples :
+
+Input: n = 7
+Output: true
+Explanation: Binary for 7 is 111 all the bits are set so the output is true.
