@@ -1,0 +1,21 @@
+Examples:
+
+Input : arr[] = [5, 3, 1, 6, 9]
+Output : 1
+Explanation:
+Players always pick the larger coin from the two ends.
+Pick 9, remaining array: [5, 3, 1, 6]
+Pick 6, remaining array: [5, 3, 1]
+Pick 5, remaining array: [3, 1]
+Pick 3, remaining array: [1]
+Final Output: 1
+-----------------------------------
+
+class Solution {
+    public int coin(int[] arr) {
+        // code here
+        if(arr.length==1) return arr[0];
+        Arrays.sort(arr);
+        return arr[0];
+    }
+}
