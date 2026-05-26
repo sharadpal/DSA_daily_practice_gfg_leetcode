@@ -1,0 +1,26 @@
+Example 1:
+
+Input: word = "aaAbcBC"
+Output: 3
+Explanation:
+The special characters in word are 'a', 'b', and 'c'
+
+---------------------------------------
+
+class Solution {
+    public int numberOfSpecialChars(String word) {
+        int count=0;
+        int freqUp[]=new int[26];
+        int freqLw[]=new int[26];
+
+        for(char ch: word.toCharArray()){
+            if(ch>='a' && ch<='z'){
+                freqLw[ch-'a']++;
+            }else freqUp[ch-'A']++;
+        }
+        for(int i=0;i<26;i++){
+            if(freqUp[i]>0 && freqLw[i]>0) count++;
+        }
+        return count;
+    }
+}
