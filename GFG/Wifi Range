@@ -1,0 +1,35 @@
+Examples: 
+
+Input: x = 0, s = "010"
+Output: false
+Explanation: Since the range is 0, so Wifi is only accessible in second room while 1st & 3rd room have no wifi. Therefore answer is false for this test case.
+----------------------------------------------
+
+class Solution {
+	public boolean wifiRange(String s, int x) {
+		// code here
+		int n = s.length();
+		boolean[] vis = new boolean[n];
+		
+		for (int i = 0; i<n; i++) {
+			if (s.charAt(i) == '1') {
+				vis[i] = true;
+				
+				// right visit
+				for (int j = i + 1; j <= i + x && j<n ; j++) {
+					vis[j] = true;
+				}
+				// left visit
+				for (int j = i - 1; j >= i - x && j >= 0; j--) {
+					vis[j] = true;
+				}
+			}
+			
+		}
+		for (int i = 0; i<n; i++) {
+			if (vis[i] == false)
+				return false;
+		}
+		return true;
+	}
+}
