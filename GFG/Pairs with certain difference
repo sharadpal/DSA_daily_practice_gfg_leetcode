@@ -1,0 +1,31 @@
+Examples:
+
+Input: arr[] = [3, 5, 10, 15, 17, 12, 9], K = 4
+Output: 62
+Explanation :
+The valid disjoint pairs with difference less than K are:
+(3, 5), (10, 12), (15, 17)
+The maximum sum obtained from these pairs is:
+3 + 5 + 10 + 12 + 15 + 17 = 62
+An alternative pairing could be:
+(3, 5), (9, 12), (15, 17)
+However, this combination results in a smaller total sum, so it is not optimal.
+
+--------------------------------------------------------------------------------------------
+
+class Solution {
+    public int sumDiffPairs(int[] arr, int k) {
+        // code here
+        int ans=0;
+        Arrays.sort(arr);
+        int idx=arr.length-1;
+        
+        while(idx>0){
+            if(arr[idx]- arr[idx-1] <k){
+                ans+=arr[idx]+arr[idx-1];
+                idx=idx-2;
+            }else idx--;
+        }
+        return ans;
+    }
+}
