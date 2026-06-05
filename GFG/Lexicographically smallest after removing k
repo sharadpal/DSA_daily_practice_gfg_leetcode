@@ -1,0 +1,38 @@
+Examples:
+
+Input: s = "fooland", k = 2
+Output: "and" 
+Explanation: As the size of the string = 7 which is not a power of 2, hence k = 4. 
+After removing 4 characters from the given string, the lexicographically smallest string is "and".
+---------------------------------------
+
+class Solution {
+    public String lexicographicallySmallest(String s, int k) {
+        // code here
+        int n=s.length();
+        if((n &(n-1))==0) k=k/2;
+        else k=k*2;
+        if(k>=n) return "-1";
+        if(k<=0) return s;
+        
+        int del=k;
+        Stack<Character> st= new Stack<>();
+        for(char ch: s.toCharArray()){
+            if(st.isEmpty()){
+                st.push(ch);
+            }
+            else{
+                while(!st.isEmpty() && st.peek()>ch && k>0){
+                    st.pop();
+                    k--;
+                }
+                st.push(ch);
+            }
+        }
+        String ans="";
+        while(!st.isEmpty()){
+            ans=st.pop()+ ans;
+        }
+        return ans.substring(0,n-del);
+    }
+}
