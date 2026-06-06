@@ -1,0 +1,17 @@
+Examples:
+
+Input: n = 2, m = 2
+Output: 12 
+Explanation: There are 12 ways we can place a black and a white Knight on this chessboard such that they cannot attack each other.
+------------------------
+
+class Solution {
+    public int numOfWays(int n, int m) {
+        // code here
+        
+        long total= n*m*(m*n-1);
+        long attack=4*(n-2)*(m-1)+4*(m-2)*(n-1);
+        return (int) (total-attack);
+        
+    }
+}
