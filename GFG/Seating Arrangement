@@ -1,0 +1,44 @@
+Examples:
+
+Input: k = 2, seats[] = [0, 0, 1, 0, 0, 0, 1]
+Output: true
+Explanation: The two people can sit at index 0 and 4.
+---------------------
+
+class Solution {
+    public boolean canSeatAllPeople(int k, int[] seats) {
+        // code here
+        for(int i=1;i<seats.length;i++){
+            if(seats[i]==1 && seats[i-1]==1){
+                return false;
+            }
+        }
+        
+        for(int i=0;i<seats.length;i++){
+            if(seats[i]==1){
+                if(i-1>=0 && seats[i-1]==0){
+                    seats[i-1]=2;
+                }
+                if(i+1<seats.length && seats[i+1]==0){
+                    seats[i+1]=2;
+                }
+            }
+        }
+        int count=0;
+        for(int i=0;i<seats.length;i++){
+            if(seats[i]==0){
+                seats[i]=1;
+                count++;
+                if(i-1>=0 && seats[i-1]==0){
+                    seats[i-1]=2;
+                }
+                if(i+1<seats.length && seats[i+1]==0){
+                    seats[i+1]=2;
+                }
+            }
+            
+        }
+        
+        return count>=k;
+    }
+}
