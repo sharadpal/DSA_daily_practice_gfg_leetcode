@@ -1,0 +1,33 @@
+Examples:
+
+Input: n = 2
+Output: 6
+Explanation: There are 6 sequences of length 2*n, the sequences are 0101, 0110, 1010, 1001, 0000 and 1111.
+--------------
+
+class Solution {
+	long MOD = 1000000007;
+	public int computeValue(int n) {
+		// code here
+		long ans = 1;
+		// Compute C(2n, n)
+		for (int i = 1; i <= n; i++) {
+			ans = (ans * (2L * n - i + 1)) % MOD;
+			// divide by i using modular inverse
+			ans = (ans * power(i, MOD - 2)) % MOD;
+		}
+		return (int) ans;
+	}
+	long power(long a, long b) {
+		long res = 1;
+		
+		while (b > 0) {
+			if ((b & 1) == 1)
+				res = (res * a) % MOD;
+			
+			a = (a * a) % MOD;
+			b> >= 1;
+		}
+		return res;
+	}
+}
