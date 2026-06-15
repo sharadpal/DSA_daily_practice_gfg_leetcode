@@ -1,0 +1,32 @@
+Examples:
+
+Input: cost[] = [20, 10, 4, 50, 100], w = 5
+Output: 14
+Explanation: The minimum cost is 14 by purchasing a 2kg packet for 10 and a 3kg packet for 4.
+--------------
+
+class Solution {
+    public int minimumCost(int[] cost, int w) {
+        // code here
+        int n= cost.length;
+        int inf= Integer.MAX_VALUE;
+        int dp[]=new int[w+1];
+        Arrays.fill(dp, inf);
+        
+        dp[0]=0;
+        for(int i=0;i<n;i++){
+            if(cost[i]==-1)
+            continue;
+            int wt=i+1;
+                
+            for(int j=wt;j<=w;j++){
+                if(dp[j-wt]!=inf){
+                    dp[j]=Math.min(dp[j],dp[j-wt]+cost[i]);
+                    
+                }
+            }
+        }
+        if(dp[w]==inf) return -1;
+        return dp[w];
+    }
+}
