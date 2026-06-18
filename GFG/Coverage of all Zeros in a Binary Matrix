@@ -1,0 +1,57 @@
+Examples:
+
+Input : mat[][] = [[1, 1, 1, 0],
+                  [1, 0, 0, 1]]
+Output : 8
+Explanation: Coverage of first zero is 2. Coverages of other two zeros is 3 Total coverage = 2 + 3 + 3 = 8
+-------------------
+
+class Solution {
+    public int findCoverage(int[][] mat) {
+        // code here
+        int r=mat.length, c= mat[0].length;
+        int ans=0;
+        for(int i=0;i<r;i++){
+            // left-to-right
+            boolean isOne=false;
+            for(int j=0;j<c;j++){
+                if(mat[i][j]==1){
+                    isOne=true;
+                }
+                else if(isOne)
+                ans++;
+            }
+            // right-to-left
+            isOne=false;
+            for(int j=c-1;j>=0;j--){
+                if(mat[i][j]==1){
+                    isOne=true;
+                }
+                else if(isOne)
+                ans++;
+            }
+        }
+        
+        for(int i=0;i<c;i++){
+            // up-to-down
+            boolean isOne=false;
+            for(int j=0;j<r;j++){
+                if(mat[j][i]==1){
+                    isOne=true;
+                }
+                else if(isOne)
+                ans++;
+            }
+            // down-to-up
+            isOne=false;
+            for(int j=r-1;j>=0;j--){
+                if(mat[j][i]==1){
+                    isOne=true;
+                }
+                else if(isOne)
+                ans++;
+            }
+        }
+        return ans;
+    }
+}
