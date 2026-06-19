@@ -1,0 +1,22 @@
+Examples :
+
+Input: arr[] = [1, 6, 9, 12]
+Output: [0, 5, 8, 14]
+Explanation: 
+For i = 0, prefix [1] already has all equal elements, so operations = 0.
+For i = 1, make [1, 6] equal to 4, operations = |1 - 4| + |6 - 4| = 5.
+For i = 2, make [1, 6, 9] equal to 6, operations = |1 - 6| + |6 - 6| + |9 - 6| = 8.
+For i = 3, make [1, 6, 9, 12] equal to 8, operations = 7 + 2 + 1 + 4 = 14
+---------------------------------------------------
+
+class Solution {
+    public ArrayList<Integer> optimalArray(int[] arr) {
+        // code here
+        ArrayList<Integer>ans= new ArrayList<>();
+        ans.add(0);
+        for(int i=1;i<arr.length;i++){
+            ans.add(ans.get(ans.size()-1)+arr[i]-arr[i/2]);
+        }
+        return ans;
+    }
+}
