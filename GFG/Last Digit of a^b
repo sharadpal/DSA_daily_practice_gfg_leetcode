@@ -1,0 +1,47 @@
+Examples:
+
+Input: a = "3", b = "10"
+Output: 9
+Explanation: 310 = 59049. Last digit is 9.
+-----------------------------------
+
+class Solution {
+    
+ int modString(String s, int mod) {
+        int res = 0;
+        for (int i = 0; i < s.length(); i++) {
+            res = (res * 10 + (s.charAt(i) - '0')) % mod;
+        }
+        return res;
+    }
+
+    public int getLastDigit(String a, String b1) {
+        // code here
+         if (b1.equals("0")) return 1;
+        //int b = Integer.parseInt(b1);
+        char unitDigit = a.charAt(a.length()-1);
+        int digit = unitDigit-'0';
+        
+        if(digit == 0 || digit == 1 || digit == 5 || digit == 6 ){
+           
+            return digit;
+        }
+        
+        else if(digit == 2 || digit == 3 || digit == 7 || digit == 8){
+           
+            int b = modString(b1, 4);  
+            if (b == 0) b = 4;
+
+            int last = (int) Math.pow(digit, b);
+            return last % 10;
+
+        }else if(digit == 4 || digit == 9){
+            int b = modString(b1, 2);  
+            if (b == 0) b = 2;
+
+            int last = (int) Math.pow(digit, b);
+            return last % 10;
+        }
+        return -1;
+    }
+};
