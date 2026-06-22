@@ -1,0 +1,26 @@
+Examples :
+
+Input: height[] = [2, 5, 4, 3, 7]
+Output: 10
+Explanation:
+
+The maximum rectangular area is formed by selecting the bars of heights 5 and 7.
+There are 2 bars between them, so the area is: min(5, 7) × 2 = 10
+-------------------------------------------------------------------------
+class Solution {
+    public int maxArea(List<Integer> height) {
+        int left=0, right= height.size()-1;
+        int maxArea=0;
+        
+        while(left<right){
+            int h= Math.min(height.get(left),height.get(right));
+            int width=right-left-1;
+            
+            maxArea=Math.max(maxArea, h*width);
+
+            if(height.get(left)<height.get(right)) left++;
+            else  right--;
+        }
+        return maxArea;
+    }
+}
