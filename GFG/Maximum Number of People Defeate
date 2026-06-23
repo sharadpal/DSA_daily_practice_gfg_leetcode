@@ -1,0 +1,22 @@
+Examples :
+
+Input: p = 14
+Output: 3
+Explanation: The strengths of the first few people are 1, 4, 9, 16, .... Defeating the first three people consumes 1 + 4 + 9 = 14 strength,
+leaving 0. Therefore, the maximum number of people that can be defeated is 3.
+----------------------------
+
+class Solution {
+    int maxPeopleDefeated(int p) {
+        // code here
+        int count=0;
+        int add=0;
+        for(int i=1;i*i<p;i++){
+            int max=i*i;
+            add+=max;
+            if(add<=p) count++;
+            if(add>p) return count;
+        }
+        return count;
+    }
+};
