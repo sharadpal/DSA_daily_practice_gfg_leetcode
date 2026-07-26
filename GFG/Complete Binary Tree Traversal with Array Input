@@ -1,0 +1,32 @@
+Examples:
+
+Input: arr[] = [7, 6, 5, 4, 3, 2, 1]
+Output: [[7], [5, 6], [1, 2, 3, 4]]
+Explanation: The complete binary tree formed from the given level order traversal is:   
+        
+The nodes at each level after sorting are:
+Level 0: [7]
+Level 1: [5, 6]
+Level 2: [1, 2, 3, 4]
+-------------------------------------
+
+class Solution {
+    public ArrayList<ArrayList<Integer>> levelSort(int[] arr) {
+        // code here
+        ArrayList<ArrayList<Integer>> ans= new ArrayList<>();
+        int index=0;
+        int levelSize=1;
+        
+        while(index<arr.length){
+            ArrayList<Integer>curr= new ArrayList<>();
+            for(int i=0;i<levelSize &&index< arr.length;i++){
+                curr.add(arr[index]);
+                index++;
+            }
+            levelSize*=2;
+            Collections.sort(curr);
+            ans.add(curr);
+        }
+        return ans;
+    }
+}
