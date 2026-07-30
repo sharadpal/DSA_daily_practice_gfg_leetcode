@@ -1,0 +1,33 @@
+Examples:
+
+Input : arr[] = [2, 4, 5]
+Output: 7
+Explanation: The subset {2, 5} has the maximum XOR value.
+Input : arr[] = [9, 8, 5]
+Output: 13
+Explanation: The subset {8, 5} has the maximum XOR value.
+--------------------------------------------------------------
+
+
+class Solution {
+	public int maxSubsetXOR(int[] arr) {
+		int[] basis = new int[32];
+		for (int num : arr) {
+			int x = num;
+			for (int bit = 31; bit >= 0; bit--) {
+				if (((x>> bit) & 1) == 0)
+					continue;
+				if (basis[bit] == 0) {
+					basis[bit] = x;
+					break;
+				}
+				x ^= basis[bit];
+			}
+		}
+		int ans = 0;
+		for (int bit = 31; bit >= 0; bit--) {
+			ans = Math.max(ans, ans ^ basis[bit]);
+		}
+		return ans;
+	}
+}
