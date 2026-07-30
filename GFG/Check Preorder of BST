@@ -1,0 +1,23 @@
+Examples :
+
+Input: arr[] = [2, 4, 3]
+Output: true
+Explaination: Given arr[] can represent preorder traversal of following BST:
+ ----------------------
+
+import java.util.*;
+class Solution {
+    public boolean canRepresentBST(List<Integer> arr) {
+        Stack<Integer> stack = new Stack<>();
+        int root = Integer.MIN_VALUE;
+        for (int x : arr) {
+            if (x < root)
+                return false;
+            while (!stack.isEmpty() && x > stack.peek()) {
+                root = stack.pop();
+            }
+            stack.push(x);
+        }
+        return true;
+    }
+}
