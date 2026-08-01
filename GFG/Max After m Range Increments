@@ -1,0 +1,30 @@
+Examples:
+
+Input: n = 5, a[] = [0, 1, 2], b[] = [1, 4, 3], k[] = [100, 100, 100]
+Output: 200
+Explanation: Initially, arr = [0, 0, 0, 0, 0]
+After the first operation: arr = [100, 100, 0, 0, 0]
+After the second operation: arr = [100, 200, 100, 100, 100]
+After the third operation: arr = [100, 200, 200, 200, 100]
+The maximum element after all operations is 200.
+----------------------------
+
+class Solution {
+    public int findMax(int n, int[] a, int[] b, int[] k) {
+        int[] diff= new int[n];
+        for(int i=0;i<a.length;i++){
+            diff[a[i]]+=k[i];
+            if(b[i]+1 < n){
+                diff[b[i]+1]-=k[i];
+            }
+        }
+        
+        int ans=0;
+        int presum=0;
+        for(int j: diff){
+            presum+=j;
+            ans=Math.max(ans,presum);
+        }
+        return ans;
+    }
+}
