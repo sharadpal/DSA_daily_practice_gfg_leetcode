@@ -1,0 +1,25 @@
+Input : arr[] = [2, 3, 4], k = 5
+Output : 3
+Explanation:  For the given array arr[] = [2, 3, 4] and k = 5, there are 3 valid pairs where the absolute difference
+between the pair's elements is less than 5. These pairs are (2, 3), (2, 4),and (3, 4). Hence, the output is 3.
+----------------------------------------------------------
+
+class Solution {
+    public static int countPairs(int arr[], int k) {
+        // code here
+        int n=arr.length;
+        if(k==0) return 0;
+        Arrays.sort(arr);
+        int left=0, right=1;
+        int count=0;
+        while(left<n){
+            if(left==right){
+                right=left+1;
+            }
+            while(right<n && arr[right]-arr[left]<k) right++;
+            count+=(right-left-1);
+            left++;
+        }
+        return count;
+    }
+}
