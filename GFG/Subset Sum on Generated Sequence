@@ -1,0 +1,32 @@
+Input: arr[] = [1, 2, 4, 2], s = 1, x = 7
+Output: true
+Explanation: The first student gets 1 on paper and writes 2. The second student gets [1, 2] and writes 5. 
+The third student gets [1, 2, 5] and writes 12. The final sequence of numbers on the paper is 1, 2, 5, 12, 22. Using 2 and 5 we can form 7. 
+-------------------------
+
+class Solution {
+    public boolean isPossible(int[] arr, int s, int x) {
+        // code here
+        if(x==0) return true;
+        
+        if(s>x) return false;
+        ArrayList<Long>list = new ArrayList<>();
+        list.add((long)s);
+        long currsum= s;
+        
+        for(int i=0;i<arr.length;i++){
+            long newsum=currsum+arr[i];
+            if(newsum>x) break;
+            list.add(newsum);
+            currsum+=newsum;
+        }
+        
+        long target=x;
+        for(int i=list.size()-1;i>=0;i--){
+            if(list.get(i)<=target){
+                target-=list.get(i);
+            }
+        }
+        return target==0? true: false;
+    }
+}
