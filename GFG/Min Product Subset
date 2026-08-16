@@ -1,0 +1,42 @@
+Examples:
+
+Input: arr[] = [1, 2, 3]
+Output: 1
+Explanation: The possible subset products are 1, 2, 3, 2, 3, 6, and 6. The minimum product is 1, obtained by selecting the subset [1].
+Input: arr[] = [4, -2, 5]
+Output: -40
+Explanation: The minimum product is -40, obtained by selecting the subset [4, -2, 5].
+-------------------------------
+
+class Solution {
+    public int minProd(int[] arr) {
+        // code here
+        int product=1;
+        int maxNegative= Integer.MIN_VALUE;
+        int negativeCount=0;
+        int minPositive= Integer.MAX_VALUE;
+        boolean hasZero=false;
+        
+        for(int x: arr){
+            if(x==0){
+                hasZero=true;
+                continue;
+            }
+            product*=x;
+            if(x<0){
+                negativeCount++;
+                maxNegative= Math.max(maxNegative,x);
+            }else{
+                minPositive=Math.min(minPositive,x);
+            }
+        }
+        if(negativeCount==0){
+            if(hasZero) return 0;
+            return minPositive;
+        }
+        if(negativeCount%2==0){
+            product/=maxNegative;
+        }
+        return product;
+    }
+}
