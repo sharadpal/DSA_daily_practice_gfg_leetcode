@@ -1,0 +1,56 @@
+Examples:
+
+Input: n = 6, lad[] = [3, 22, 5, 8, 11, 35, 20, 32], sn[] = [17, 4, 19, 7, 34, 1, 21, 9]
+Output: 3
+Explanation: For the 6 × 6 board, the minimum number of dice throws needed to reach cell 36 from cell 1 is 3.
+One optimal path is:
+Throw 4 to move from 1 to 5, then take the ladder to 8
+Throw 3 to move from 8 to 11, then take the ladder to 35
+Throw 1 to move from 35 to 36
+So the destination is reached in 3 dice throws.
+-----------------------------------------------------------
+
+class Solution {
+	public int minThrows(int n, int[] lad, int[] sn) {
+		int total = n*n;
+		
+		int[] jump = new int[total + 1];
+		
+		for (int i = 0; i<lad.length; i += 2) {
+			jump[lad[i]] = lad[i + 1];
+		}
+		for (int i = 0; i<sn.length; i += 2) {
+			jump[sn[i]] = sn[i + 1];
+		}
+		
+		boolean[] visited = new boolean[total + 1];
+		Queue<int[]> q = new LinkedList<>();
+		
+		q.offer(new int[] {1, 0});
+		visited[1] = true;
+		
+		while (!q.isEmpty()) {
+			int[] cur = q.poll();
+			int cell = cur[0];
+			int throwCount = cur[1];
+			
+			if (cell == total) {
+				return throwCount;
+			}
+			for (int dice = 1; dice <= 6; dice++) {
+				int next = cell + dice;
+				if (next > total) {
+					continue;
+				}
+				if (jump[next] != 0) {
+					next = jump[next];
+				}
+				if (!visited[next]) {
+					visited[next] = true;
+					q.offer(new int[] {next, throwCount + 1});
+				}
+			}
+		}
+		return - 1;
+	}
+}
