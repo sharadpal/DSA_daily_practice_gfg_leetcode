@@ -1,0 +1,22 @@
+Input: root[] = [1, 2, 3, N, N, N, 7] 
+
+Output: -1
+Explanation: The maximum difference we can get is -1, which is between 1 and 2
+------------------------------------------------------------------------------------
+
+class Solution {
+    int ans=Integer.MIN_VALUE;
+    int maxDiff(Node root) {
+        //  code here
+        solve(root.left,root.data);
+        solve(root.right,root.data);
+        return ans;
+    }
+    void solve(Node root, int maxAncestor){
+        if(root==null) return;
+        ans= Math.max(ans, maxAncestor-root.data);
+        maxAncestor=Math.max(maxAncestor,root.data);
+        solve(root.left,maxAncestor);
+        solve(root.right,maxAncestor);
+    }
+}
