@@ -1,0 +1,45 @@
+Examples:
+
+Input: s1 = "GeeksForGeeks", s2 = "ForGeeksGeeks"
+Output: 3
+Explanation: The conversion can take place in 3 operations: 
+Pick 'r' and place it at the front.
+s1 = "rGeeksFoGeeks"
+Pick 'o' and place it at the front.
+s1 = "orGeeksFGeeks"
+Pick 'F' and place it at the front.
+s1 = "ForGeeksGeeks"
+---------------------------------------
+
+class Solution {
+    int transform(String s1, String s2) {
+        // code here
+        int n=s1.length();
+        if(n!= s2.length()) return -1;
+        
+        Map<Character,Integer>map=new HashMap<>();
+        
+        for(char c: s1.toCharArray()){
+            map.put(c,map.getOrDefault(c,0)+1);
+        }
+        
+        for(char c: s2.toCharArray()){
+            map.put(c,map.getOrDefault(c,0)-1);
+        }
+        
+        for(int val:map.values()){
+            if(val!=0) return -1;
+        }
+        
+        int i=n-1;
+        int j=n-1;
+        while(i>=0 && j>=0){
+            if(s1.charAt(i)==s2.charAt(j)){
+                i--;
+                j--;
+            }
+            else i--;
+        }
+        return j+1;
+    }
+}
