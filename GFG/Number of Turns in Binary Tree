@@ -1,0 +1,62 @@
+Examples :
+
+Input: root[] = [1, 2, 3, 4, 5, 6, 7, 8, N, N, N, 9, 10], p = 5, q = 10
+Output: 4
+Explanation: The path from node 5 to node 10 is: 5 -> 2 -> 1 -> 3 -> 6 → 10  
+  Direction changes occur at nodes 2, 1, 3, and 6. Therefore, the number of turns is 4.
+
+-------------------------------------------------------------------------------------------------
+
+class Solution {
+
+    Node lca(Node root, int p, int q) {
+        if (root == null || root.data == p || root.data == q)
+            return root;
+        Node left = lca(root.left, p, q);
+        Node right = lca(root.right, p, q);
+        if (left != null && right != null)
+            return root;
+        return left != null ? left : right;
+    }
+
+    boolean getPath(Node root, int x, StringBuilder path) {
+        if (root == null)
+            return false;
+        if (root.data == x)
+            return true;
+        path.append('L');
+        if (getPath(root.left, x, path))
+            return true;
+        path.deleteCharAt(path.length() - 1);
+        path.append('R');
+        if (getPath(root.right, x, path))
+            return true;
+        path.deleteCharAt(path.length() - 1);
+        return false;
+    }
+
+    public int numberOfTurns(Node root, int p, int q) {
+        Node common = lca(root, p, q);
+        StringBuilder pathP = new StringBuilder();
+        StringBuilder pathQ = new StringBuilder();
+        getPath(common, p, pathP);
+        getPath(common, q, pathQ);
+        int turns = 0;
+        // Count turns in path to p
+        for (int i = 1; i < pathP.length(); i++) {
+            if (pathP.charAt(i) != pathP.charAt(i - 1))
+                turns++;
+        }
+        // Count turns in path to q
+        for (int i = 1; i < pathQ.length(); i++) {
+            if (pathQ.charAt(i) != pathQ.charAt(i - 1))
+                turns++;
+        }
+        // Turn at LCA: one path starts L and the other starts R
+        if (pathP.length() > 0 && pathQ.length() > 0 &&
+            pathP.charAt(0) != pathQ.charAt(0)) {
+            turns++;
+        }
+        return turns == 0 ? -1 : turns;
+    }
+}
