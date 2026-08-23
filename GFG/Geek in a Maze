@@ -1,0 +1,82 @@
+Examples:
+
+Input: r = 1, c = 0, u = 1, d = 1, mat = [['.', '.', '.'], ['.', '#', '.'], ['#', '.', '.']]
+Output: 5
+Explanation: Geek starts from (1, 0) and follows the path (1,0)->(0,0)->(0,1)->(0,2)->(1,2). The cells (1,1)
+and (2,0) are obstacles, so they cannot be visited. Hence, Geek can visit 5 distinct empty cells.
+-----------------------------------------------------------------------------------------------------------------
+
+class Pair {
+    int row, col, curup, curdown;
+    Pair(int row, int col, int curup, int curdown) {
+        this.row = row;
+        this.col = col;
+        this.curup = curup;
+        this.curdown = curdown;
+    }
+}
+
+class Solution {
+    public int numberOfCells(int r, int c, int u, int d, char[][] mat) {
+        int n = mat.length;
+        int m = mat[0].length;
+
+        // If starting cell is an obstacle, no cells can be reached
+        if (mat[r][c] == '#') return 0;
+
+        // minUp[i][j] stores the minimum 'Up' moves used to reach cell (i, j)
+        int[][] minUp = new int[n][m];
+        for (int i = 0; i < n; i++) {
+            Arrays.fill(minUp[i], Integer.MAX_VALUE);
+        }
+
+        // Direction vectors for moving Up, Left, Down, Right
+        int[] dr = {-1, 0, 1, 0};
+        int[] dc = {0, -1, 0, 1};
+        PriorityQueue<Pair> pq = new PriorityQueue<>((a, b) -> Integer.compare(a.curup, b.curup));
+        minUp[r][c] = 0;
+        pq.add(new Pair(r, c, 0, 0));
+
+        int reachableCount = 0;
+        boolean[][] visited = new boolean[n][m];
+
+        while (!pq.isEmpty()) {
+            Pair it = pq.poll();
+            int ro = it.row;
+            int co = it.col;
+            int cup = it.curup;
+            int cd = it.curdown;
+
+            // If we have already finalized this cell with an optimal path, skip it
+            if (visited[ro][co]) continue;
+            visited[ro][co] = true;
+            reachableCount++; 
+
+            for (int i = 0; i < 4; i++) {
+                int nr = ro + dr[i];
+                int nc = co + dc[i];
+
+                if (nr >= 0 && nr < n && nc >= 0 && nc < m && mat[nr][nc] != '#') {
+                    int nextUp = cup;
+                    int nextDown = cd;
+
+                    // Increment movement cost depending on direction
+                    if (dr[i] == -1) {
+                        nextUp++; // Moved UP
+                    } else if (dr[i] == 1) {
+                        nextDown++; // Moved DOWN
+                    }
+                    if (nextUp <= u && nextDown <= d) {
+                        if (nextUp < minUp[nr][nc]) {
+                            minUp[nr][nc] = nextUp;
+                            pq.add(new Pair(nr, nc, nextUp, nextDown));
+                        }
+                    }
+                }
+            }
+        }
+
+        return reachableCount;
+    }
+}
+ 
