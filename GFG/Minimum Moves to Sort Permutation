@@ -1,0 +1,30 @@
+Input: arr[] = [4, 3, 1, 2]
+Output: 2
+Explanation: Move 3 to the end to get [4, 1, 2, 3]. Then move 4 to the end to get [1, 2, 3, 4].
+-------------------------------------------------------------------------------------------------
+
+class Solution {
+    public int minMoves(int[] arr) {
+        int n = arr.length;
+        
+        int[] pos = new int[n+1];
+        
+        for(int i = 0; i<n;i++){
+            pos[arr[i]] = i;
+        }
+        
+        int maxLen = 1;
+        int curLen = 1;
+        
+        for(int val = 2;val <= n;val++){
+            if(pos[val] > pos[val-1]){
+                curLen++;
+            }else{
+                curLen = 1;
+            }
+            maxLen = Math.max(maxLen, curLen);
+        }
+        
+        return n - maxLen;
+    }
+}
