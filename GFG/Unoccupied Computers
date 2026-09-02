@@ -1,0 +1,40 @@
+Examples:
+
+Input: n = 3, s = "GACCBDDBAGEE"
+Output: 1
+Explanation: Only D will not be able to get any computer. So the answer is 1.
+----------------------------------------------------------------------------------
+
+class Solution {
+    public int solve(int n, String s) {
+        int[] state = new int[26];
+        
+        int com = n;
+        int ans = 0;
+        
+        for(char ch:s.toCharArray()){
+            int idx = ch - 'A';
+            
+            // first occurence
+            if(state[idx] == 0){
+                if(com > 0){
+                    com--;
+                    state[idx] = 1;
+                }else{
+                    ans++;
+                    state[idx] = 2;
+                }
+            }
+            // second occurence
+            else if(state[idx] == 1){
+                com++;
+                state[idx] = 0;
+            }
+            // second occurence of a rejected customer
+            else{
+                state[idx] = 0;
+            }
+        }
+        return ans;
+    }
+}
