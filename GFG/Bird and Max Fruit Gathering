@@ -1,0 +1,40 @@
+Input: arr[] = [1, 6, 2, 5, 3, 4], m = 2
+Output: 8
+Explanation: The bird can start from the second tree and visit the second and third trees, collecting 6 + 2 = 8.
+It can also start from the fourth tree and visit the fourth and fifth trees, collecting 5 + 3 = 8. The maximum total fruit value is 8.
+--------------------------------------------------------------------
+
+class Solution {
+    public int maxFruits(ArrayList<Integer> arr, int m) {
+        int n = arr.size();
+
+        // We can visit all trees
+        if(m >= n){
+            int complete = 0;
+            for(int x:arr){
+                complete+=x;
+            }
+            return complete;
+        }
+
+        // First window
+        int sum = 0;
+        for(int i=0;i<m;i++){
+            sum+= arr.get(i);
+        }
+
+        int ans = sum;
+
+        // Remaining n - 1 windows
+        for(int win = 1;win<n;win++){
+            int sub = win - 1;
+            sum-= arr.get(sub);
+
+            int add = (win + m - 1)%n;
+            sum+= arr.get(add);
+
+            ans = Math.max(ans, sum);
+        }
+        return ans;
+    }
+}
