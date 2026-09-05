@@ -1,0 +1,23 @@
+Input : arr[] = [1, 2, 3, 2, 3, 7, 2, 1]
+Output : 7
+Explanation:  Longest subsequences with difference 1 is [1, 2, 3, 2, 3, 2, 1].
+----------------------------------------------------------------------------------
+
+
+class Solution {
+    public int longestSubseq(int[] arr) {
+        int[] len = new int[1000002];
+        int ans = 1;
+
+        for (int x : arr) {
+            int left = len[x - 1];
+            int right = len[x + 1];
+
+            len[x] = Math.max(len[x], Math.max(left, right) + 1);
+
+            ans = Math.max(ans, len[x]);
+        }
+
+        return ans;
+    }
+}
