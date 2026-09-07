@@ -1,0 +1,63 @@
+Examples:
+
+Input: arr[] = [7, 8, 1, 2, 4, 6, 3, 5, 2, 1, 8, 7]
+Output: 2
+Explanation: One possible increasing subsequence is: [1, 2, 4, 5, 8]. One possible decreasing subsequence is: [7, 6, 3, 2, 1]. 
+The remaining elements are 8 and 7, so the minimum number of unselected elements is 2.
+----------------------------------------------------------------------------------------
+
+class Solution {
+    public int minCount(int[] arr) {
+        int n = arr.length;
+        int m = 102;
+        int[][] dp = new int[m][m];
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < m; j++) {
+                dp[i][j] = -1;
+            }
+        }
+
+        dp[101][0] = 0;
+        for (int x : arr) {
+            int[][] next = new int[m][m];
+            for (int i = 0; i < m; i++) {
+                for (int j = 0; j < m; j++) {
+                    next[i][j] = -1;
+                }
+            }
+            for (int incSub = 0; incSub < m; incSub++) {
+                for (int decSub = 0; decSub < m; decSub++) {
+                    if (dp[incSub][decSub] == -1) {
+                        continue;
+                    }
+                    int selected = dp[incSub][decSub];
+                    next[incSub][decSub] = Math.max(
+                        next[incSub][decSub],
+                        selected
+                    );
+                    if (incSub == 101 || x > incSub) {
+                        next[x][decSub] = Math.max(
+                            next[x][decSub],
+                            selected + 1
+                        );
+                    }
+                    if (decSub == 0 || x < decSub) {
+                        next[incSub][x] = Math.max(
+                            next[incSub][x],
+                            selected + 1
+                        );
+                    }
+                }
+            }
+            dp = next;
+        }
+        int maxSel = 0;
+        for (int incSub = 0; incSub < m; incSub++) {
+            for (int decSub = 0; decSub < m; decSub++) {
+                maxSel = Math.max(maxSel, dp[incSub][decSub]);
+            }
+        }
+        return n - maxSel;
+    }
+}
