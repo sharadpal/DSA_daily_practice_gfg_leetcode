@@ -1,0 +1,34 @@
+Input: n = 90
+Output: 89
+Explanation: 89 gives us the largest digit sum in the range from 1 to n. Hence the answer is 89. 
+-------------------------------------------------------------
+
+class Solution {
+    public int findMax(int n) {
+        if (n <= 9) return n;
+        long oldNum = digitSum(n);
+        int res = n;
+        long temp = n;
+        long mul = 1;
+        while (temp > 0) {
+            long num = (temp - 1) * mul + (mul - 1);
+            long currSum = digitSum(num);
+            if (currSum > oldNum || (currSum == oldNum && num > res)) {
+                oldNum = currSum;
+                res = (int) num;
+            }
+            temp /= 10;
+            mul *= 10;
+        }
+
+        return res;
+    }
+    private long digitSum(long n) {
+        long sum = 0;
+        while (n > 0) {
+            sum += n % 10;
+            n /= 10;
+        }
+        return sum;
+    }
+}
