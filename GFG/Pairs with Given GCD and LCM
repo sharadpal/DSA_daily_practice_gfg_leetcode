@@ -1,0 +1,39 @@
+Examples:
+
+Input: x = 2, y = 12
+Output: 4
+Explanation: The valid pairs are (2, 12), (4, 6), (6, 4), and (12, 2), since each pair has GCD = 2 and LCM = 12.
+----------------------------------------------------------------------------------------------------------------------
+
+class Solution {
+	public int pairCount(int x, int y) {
+		if (y % x != 0) {
+			return 0;
+		}
+		
+		int num = y/x;
+		int count = 0;
+		for (int p = 1; p*p <= num; p++) {
+			if (num % p == 0) {
+				int q = num / p;
+				
+				if (gcd(p, q) == 1) {
+					count += 2;
+				}
+			}
+		}
+		if (num == 1) {
+			return 1;
+		}
+		return count;
+	}
+	
+	private int gcd(int a, int b) {
+		while (b != 0) {
+			int temp = a % b;
+			a = b;
+			b = temp;
+		}
+		return a;
+	}
+}
