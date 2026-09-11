@@ -1,0 +1,43 @@
+Examples:
+
+Input: arr[] = [38, 6, 34]
+Output: 3
+Explanation: 
+The values of k for which all elements leave the same remainder when divided by k are 1, 2, and 4.
+For k = 1, all elements leave remainder 0.
+For k = 2, all elements leave remainder 0.
+For k = 4, all elements leave remainder 2.
+No other positive integer satisfies the required condition. Hence, the answer is 3.
+-------------------------------------------------------------------------------------------
+
+class Solution {
+    public int sameMod(int[] arr) {
+        int g = 0;
+        // find gcd
+        for(int i=1;i<arr.length;i++){
+            int dif = Math.abs(arr[i] - arr[0]);
+            g = gcd(g, dif);
+        }
+        if(g == 0){
+            return -1;
+        }
+        int count = 0;
+        for(int i=1;i*i<=g;i++){
+            if(g % i == 0){
+                count+= 2;
+                if(i*i == g){
+                    count--;
+                }
+            }   
+        }
+        return count;
+    }
+    private int gcd(int a, int b){
+        while(b != 0){
+            int temp = a % b;
+            a = b;
+            b = temp;
+        }
+        return a;
+    }
+}
