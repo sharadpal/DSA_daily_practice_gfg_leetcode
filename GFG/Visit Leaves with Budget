@@ -1,0 +1,44 @@
+Examples:
+
+Input: root[] = [10, 8, 2, 3, N, 3, 6, N, N, N, 4], k = 8
+
+Output: 2
+Explanation:
+Cost For visiting Leaf Node 3: 3
+Cost For visiting Leaf Node 4: 4
+Cost For visiting Leaf Node 6: 3
+To maximize the number of visited leaves, choose the two cheapest leaves: Cost = 3 + 3 = 6 ≤ 8. 
+Thus, the maximum number of leaf nodes that can be visited is 2.
+----------------------------------------------------------------------------------------------------------
+
+class Solution {
+  
+    private void dfs(Node root, int level,int k, int freq[]){
+        if(level>k) return;
+        if(root==null) return;
+        if(root.left==null && root.right==null){
+            freq[level]++;
+            return;
+        }
+        dfs(root.left,level+1,k,freq);
+        dfs(root.right,level+1,k,freq);
+    }
+    
+    public int getCount(Node root, int k) {
+        // code here
+        int freq[]= new int[k+1];
+        dfs(root, 1,k,freq);
+        
+        int ans=0;
+        int budget=k;
+        
+        for(int i=1;i<=k;i++){
+            while(freq[i]>0 && budget>=i){
+                budget-=i;
+                ans++;
+                freq[i]--;
+            }
+        }
+        return ans;
+    }
+}
