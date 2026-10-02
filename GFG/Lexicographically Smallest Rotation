@@ -1,0 +1,35 @@
+Example:
+
+Input: s = "abcd"
+Output: "abcd"
+Explanation: String after each rotation are "abcd", "bcda", "cdab", "dabc" and so on. Lexicographically smallest among them is "abcd".
+--------------------------------------
+
+class Solution {
+	public String lexiString(String s) {
+		int n = s.length();
+		int i = 0, j = 1, k = 0;
+		
+		// Two-pointer minimum rotation algorithm
+		while (i < n && j < n && k < n) {
+			char charI = s.charAt((i + k) % n);
+			char charJ = s.charAt((j + k) % n);
+			
+			if (charI == charJ) {
+				k++;
+			} else {
+				if (charI > charJ) {
+					i += k + 1;
+				} else {
+					j += k + 1;
+				}
+				if (i == j) {
+					j++;
+				}
+				k = 0; 
+			}
+		}
+		int startPos = Math.min(i, j);
+		return s.substring(startPos) + s.substring(0, startPos);
+	}
+}
