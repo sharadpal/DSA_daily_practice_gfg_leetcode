@@ -1,0 +1,26 @@
+Examples:
+
+Input: arr[] = [2, 2, 4], k = 4
+Output: 3
+Explanation: Apply two increment operations on index 0 and two operations on index 1 to make arr[]= [4, 4, 4]. Frequency of 4 is 3.
+---------------------------------------------------
+
+class Solution {
+	public int maxFrequency(int[] arr, int k) {
+		// code here
+		Arrays.sort(arr);
+		
+		long sum = 0;
+		int left = 0;
+		int res = 1;
+		for (int right = 0; right < arr.length; right++) {
+			sum += arr[right];
+			while ((long) arr[right] * (right - left + 1) - sum > k) {
+				sum -= arr[left];
+				left++;
+			}
+			res = Math.max(res, right - left + 1);
+		}
+		return res;
+	}
+}
