@@ -1,0 +1,27 @@
+Examples:
+
+Input: a = 4, b = 11
+Output: true
+Explanation: 11 + 4 + 1 = 16. So, target = 11 can be balanced using powers of 4.
+---------------------------------------------------------------------------------
+
+class Solution {
+	public boolean balancePan(int a, int b) {
+		// code here
+		while (b > 0) {
+			int x = b % a;
+			
+			if (x == 0) {
+				b = (int)Math.floor(b / a);
+			} else if (x == 1) {
+				b = (int)Math.floor((b - 1) / a);
+			} else if (x == a - 1) {
+				b = (int)Math.floor((b + 1) / a);
+			} else {
+				return false;
+			}
+		}
+		
+		return true;
+	}
+}
